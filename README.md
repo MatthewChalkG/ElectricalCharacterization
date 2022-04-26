@@ -64,7 +64,7 @@ Much of this has been automated in the script `plotrt.py`, which provides severa
 
 <h3> CAD Design Files </h3>
 
-CAD files for the glovebox and vacuum transport stage are both included in .zip files. These are both works in progress, so users considering assemnbling a similar stage are encouraged to contact Kaveh Pezeshki (kpezeshki@hmc.edu) for an up-to-date summary and design. Parts were designed in Solidworks 2020, but these files will be converted to other file formats on request.
+CAD files for the glovebox and vacuum transport stage are both included in .zip files. These are both works in progress, so users considering assembling a similar stage are encouraged to contact Kaveh Pezeshki (kpezeshki@hmc.edu) for an up-to-date summary and design. Parts were designed in Solidworks 2020, but these files will be converted to other file formats on request.
 
 <h3> PCB Design Files </h3>
 
