@@ -13,7 +13,7 @@ This repository contains the supplementary information discussed in the thesis t
 
 <h3>Automated temperature control and measurement </h3>
 
-Scripts interface with measurement instruments over GPIB, GPIB via USB, and RS-232. Users must therefore have functional pyserial and pyvisa installations. Similarly, users must have functioning NI-VISA libraries, which can be downloaded from the National Instruments [website]{https://www.ni.com/en-us/support/downloads/drivers/download.ni-visa.html#442805}.
+Scripts interface with measurement instruments over GPIB, GPIB via USB, and RS-232. Users must therefore have functional pyserial and pyvisa installations. Similarly, users must have functioning NI-VISA libraries, which can be downloaded from the National Instruments [website](https://www.ni.com/en-us/support/downloads/drivers/download.ni-visa.html#442805).
 
 The raw scripts used for data logging in this work are given in `sortedelectricaldata/datalogging`. In general, the scripts expect the following equipment:
 
