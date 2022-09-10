@@ -1,18 +1,16 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-resistorRes = 10*10**3
-data = pd.read_csv("DiffRes.txt")
+data = pd.read_csv("IV14.txt")
 
-voltAcrossResistor = abs(data["x"])
+curr = abs(data["x"])
+volt = data["v"]
 
-dI = voltAcrossResistor/resistorRes
-dV = abs(data["v"])
+resistance = volt/curr
 
-bias = data["b"]
-R = dV/dI
-
-plt.scatter(bias, R)
+plt.scatter(volt, curr)
 plt.show()
 
+plt.plot(volt, resistance)
+plt.show()
 
