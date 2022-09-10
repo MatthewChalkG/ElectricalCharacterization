@@ -1,34 +1,56 @@
-from SR830 import SR830
+from SR2124 import SR2124
 import time
 import serial
 import numpy as np
 
-LIA = SR2124('COM1')
+
+LIA = SR2124('COM4')
 
 x, y, r, theta = LIA.readall()
-
+#BION
 print(x,y,r,theta)
 
-LIA.setv(0)
-LIA.setf(10)
+f = 10.123
+v = 10**-2 # Minimum v necessary to get full range of DC bias: Why: bias values can be set up to 1000 the reference amplitude
+b = 0
+
+LIA.setv(v)
+LIA.setf(f)
+LIA.setb(0)
+
 
 flog = open("DiffRes.txt", "w")
 flog.write("f,b,v,x,y,r, theta\n")
-v = 10^-7
-
-LIA.setv(v)
-for d in (1, -1)
-    for b in np.linspace(-10, 10, 200):
-        b=b*d
-        LIA.setf(f+0.123)
-        LIA.setb(b)
-        time.sleep(1)
-
-        x, y, r, theta = LIA.readall()
-
-        print(f,b,v,x,y,r,theta)
 
 
-        flog.write(str(f)+","+str(b) + ',' +str(v)+","+str(x)+","+str(y)+","+str(r)+","+str(theta)+"\n")
+
+for b in np.linspace(0, 10, 40):
+    b =  round(b,2) # lock in wont take values with more decimal places then it holds
+    
+    LIA.setb(b)
+    time.sleep(1)
+    
+
+    x, y, r, theta = LIA.readall()
+    print()
+    print(f,b,v,x,y,r,theta)
+
+
+    flog.write(str(f)+","+str(b) + ',' +str(v)+","+str(x)+","+str(y)+","+str(r)+","+str(theta)+"\n")
+
+for b in np.linspace(10, 0, 40):
+    b =  round(b,2) # lock in wont take values with more decimal places then it holds
+    
+    LIA.setb(b)
+    time.sleep(1)
+    
+
+    x, y, r, theta = LIA.readall()
+    print()
+    print(f,b,v,x,y,r,theta)
+
+
+    flog.write(str(f)+","+str(b) + ',' +str(v)+","+str(x)+","+str(y)+","+str(r)+","+str(theta)+"\n")
+
 
 flog.close()

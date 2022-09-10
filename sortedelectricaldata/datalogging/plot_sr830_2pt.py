@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-resistorRes = 10*10^3
+resistorRes = 10*10**3
 data = pd.read_csv("DiffRes.txt")
 
 voltAcrossResistor = abs(data["x"])
