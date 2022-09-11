@@ -1,56 +1,49 @@
 from SR2124 import SR2124
+from SR830 import SR830
 import time
 import serial
 import numpy as np
 
 
-LIA = SR2124('COM4')
-    
-x, y, r, theta = LIA.readall()
-#BION
-print(x,y,r,theta)
+SR2 = SR2124('COM4')
+SR8 = SR830('COM3')
 
-f = 10.123
-v = 10**-2 # Minimum v necessary to get full range of DC bias: Why: bias values can be set up to 1000 the reference amplitude
-b = 0
+x2, y2, r2, theta2 = SR2.readall()
 
-LIA.setv(v)
-LIA.setf(f)
-LIA.setb(0)
-LIA.onb(1)
+print(x2,y2,r2,theta2)
+
+f2 = 10.123
+v2 = 10**-2 # Minimum v necessary to get full range of DC bias: Why: bias values can be set up to 1000 the reference amplitude
+b2 = 0
+
+SR2.setv(v2)
+SR2.setf(f2)
+SR2.setb(0)
+SR2.onb(1)
+
+
 
 flog = open("DiffRes.txt", "w")
-flog.write("f,b,v,x,y,r, theta\n")
+flog.write("f2,b2,v2,x2,y2,r2,theta2,x8,y8,r8, theta8 \n")
 
 
 
-for b in np.linspace(0, 10, 40):
-    b =  round(b,2) # lock in wont take values with more decimal places then it holds
+for b2 in np.linspace(0, 10, 40):
+    b2 =  round(b2,2) # lock in wont take values with more decimal places then it holds
     
-    LIA.setb(b)
+    SR2.setb(b2)
     time.sleep(1)
     
 
-    x, y, r, theta = LIA.readall()
+    x2, y2, r2, theta2 = SR2.readall()
+    x8, y8, r8, theta8 = SR8.readall()
+
     print()
-    print(f,b,v,x,y,r,theta)
+    print(f2,b2,v2,x2,y2,r2,theta2)
 
 
-    flog.write(str(f)+","+str(b) + ',' +str(v)+","+str(x)+","+str(y)+","+str(r)+","+str(theta)+"\n")
+    flog.write(str(f2)+","+str(b2) + ',' +str(v2)+","+str(x2)+","+str(y2)+","+str(r2)+","+str(theta2)+str(x8)+str(y8)+str(r8)+str(theta8)"\n")
 
-for b in np.linspace(10, 0, 40):
-    b =  round(b,2) # lock in wont take values with more decimal places then it holds
-    
-    LIA.setb(b)
-    time.sleep(1)
-    
-
-    x, y, r, theta = LIA.readall()
-    print()
-    print(f,b,v,x,y,r,theta)
-
-
-    flog.write(str(f)+","+str(b) + ',' +str(v)+","+str(x)+","+str(y)+","+str(r)+","+str(theta)+"\n")
 
 
 flog.close()

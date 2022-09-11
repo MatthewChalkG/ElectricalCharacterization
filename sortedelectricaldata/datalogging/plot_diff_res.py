@@ -4,10 +4,10 @@ import pandas as pd
 resistorRes = 10*10**3
 data = pd.read_csv("DiffRes.txt")
 
-voltAcrossResistor = abs(data["x"])
+voltAcrossResistor = abs(data["x2"])
 
 dI = voltAcrossResistor/resistorRes
-dV = abs(data["v"])
+dV = abs(data["x8"])
 
 bias = data["b"]
 R = dV/dI
