@@ -5,7 +5,7 @@ import numpy as np
 
 
 LIA = SR2124('COM4')
-
+    
 x, y, r, theta = LIA.readall()
 #BION
 print(x,y,r,theta)
@@ -17,7 +17,7 @@ b = 0
 LIA.setv(v)
 LIA.setf(f)
 LIA.setb(0)
-
+LIA.onb(1)
 
 flog = open("DiffRes.txt", "w")
 flog.write("f,b,v,x,y,r, theta\n")

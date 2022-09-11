@@ -68,5 +68,8 @@ class SR2124:
     
     def setb(self, b):
         self.ser.write(("BIAS"+str(b)+'\r\n').encode('utf-8'))
+
+    def onb(self, yn):
+        self.ser.write(("BION"+str(yn)+'\r\n').encode('utf-8'))
     
 
