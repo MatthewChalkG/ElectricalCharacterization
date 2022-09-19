@@ -7,12 +7,14 @@ data = pd.read_csv("DiffRes.txt")
 voltAcrossResistor = abs(data["x2"])
 
 dI = voltAcrossResistor/resistorRes
-dV = abs(data["x8"])
+dV = abs(data["r8"])
 
-bias = data["b"]
+bias = data["b2"]
 R = dV/dI
 
 plt.scatter(bias, R)
+plt.xlim(-10,10)
+plt.ylim(115,125)
 plt.show()
 
 
