@@ -18,7 +18,8 @@ from matplotlib.ticker import FormatStrFormatter
 
 sweep_points = [[31906,33700], [33700, 35393], [39565, 41397], [41397, 43074], [47239, 49000], [49000, 50696], [55038, 56887], [56887, 58535], [62716, 64445], [64445, 66254], [70394, 72244], [72244, 73972], [78050, 79870], [79870, 81560], [85730, 87440], [87440, 89260]]
 
-filename = "Feb25_DYT048_NiAu_Ag/logPAR124_SR830_sweeps.txt"
+#filename = "Feb25_DYT048_NiAu_Ag/logPAR124_SR830_sweeps.txt"
+filename = "logPAR124_SR830_sweeps.txt"
 
 # ---- FEB 18 ----
 
@@ -38,7 +39,7 @@ filename = "Feb25_DYT048_NiAu_Ag/logPAR124_SR830_sweeps.txt"
 
 # filename = "Feb11_DYT048_NiAu/logPAR124_SR830_air.txt"
 
-mode = "plotdetvtime" # choosepoints testrt fitrt plotrt twopoint plotdetvtime
+mode = "plotrt" # choosepoints testrt fitrt plotrt twopoint plotdetvtime
 
 # DON'T TOUCH ---------------------
 
@@ -154,7 +155,7 @@ def remove_hysteresis(temp_th, resistivity):
 
 
 time = [(t - data["time"][0])/60 for t in data["time"]]
-x_par = abs(data["PAR124"])
+x_par = abs(data["sr2124"])
 y_sr = abs(data["y"])
 x_sr  = abs(data["x"])
 temp_th = data["tr temp (C)"]+273
@@ -285,7 +286,7 @@ elif mode == "plotrt":
     tempax.set_xlabel("time (minutes)")
     tempax.set_ylabel("temperature (K)")
     resax.set_ylabel("$V_{34}/I_{12}$ (ohms)")
-
+    print(time)
     resax.plot(time, [r+u for r,u in zip(resistivity, resistivity_unc)], alpha=0.5, c='b')
     resax.plot(time, [r-u for r,u in zip(resistivity, resistivity_unc)], alpha=0.5, c='b')
     resax.plot(time, resistivity, label="Ω")
@@ -294,7 +295,8 @@ elif mode == "plotrt":
     resax.legend(loc=1)
     tempax.legend(loc=2)
 
-    resax.set_xlim([1880, 5300])
+    resax.set_xlim([0, 60])
+    #resax.set_xlim([0, 5300])
     resax.set_ylim([0,6e5])
     plt.grid()
     plt.show()
