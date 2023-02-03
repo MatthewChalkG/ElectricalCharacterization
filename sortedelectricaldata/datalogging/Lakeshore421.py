@@ -17,10 +17,14 @@ class Lakeshore421:
         #\r\n is for device terminators set to CR LF
         self.ser.write((command+'\r\n').encode('utf-8'))
         #wait one second before reading output.
-        time.sleep(.5)
+        time.sleep(1)
         out=''
         while self.ser.inWaiting() > 0:
-            out += self.ser.read(1).decode('utf-8')
+            print(out)
+            n =self.ser.read(1)
+            print(n, type(n))
+            out += n.decode('utf-8', errors = "ignore")
+            time.sleep(1)
         if out != '':
             out=out.rstrip()
             if parse: return float(out)
