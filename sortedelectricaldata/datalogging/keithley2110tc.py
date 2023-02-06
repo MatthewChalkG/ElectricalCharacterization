@@ -11,3 +11,9 @@ class keithley2110tc:
     def thermoCoupleTemp(self):
         temp = float(self.inst.query('meas:tco?'))
         return temp
+    
+    def voltage(self):
+        v = float(self.inst.query('meas:volt?'))
+        return v
+
+ 
