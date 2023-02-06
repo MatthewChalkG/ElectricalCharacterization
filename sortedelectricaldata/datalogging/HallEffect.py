@@ -17,7 +17,6 @@ SPD3303x.set_current(0)
 keith = keithley2110tc()
 
 for i in np.linspace(0, 3.2, 50):
-    i = 0
     SPD3303x.set_current(i)
     time.sleep(.3)
     x, y, r, theta =LIA.readall() 
@@ -30,7 +29,6 @@ for i in np.linspace(0, 3.2, 50):
     f.close()
 
 for i in np.linspace(3.2, 0, 50):
-    i = 0
     SPD3303x.set_current(i)
     time.sleep(.3)
     x, y, r, theta =LIA.readall() 
