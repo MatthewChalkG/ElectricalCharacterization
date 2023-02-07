@@ -16,7 +16,7 @@ SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
 keith = keithley2110tc()
 
-for i in np.linspace(0, 3.2, 50):
+for i in np.linspace(0, 3.2, 20):
     SPD3303x.set_current(i)
     time.sleep(.3)
     x, y, r, theta =LIA.readall() 
@@ -28,7 +28,7 @@ for i in np.linspace(0, 3.2, 50):
     f.write(str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
     f.close()
 
-for i in np.linspace(3.2, 0, 50):
+for i in np.linspace(3.2, 0, 20):
     SPD3303x.set_current(i)
     time.sleep(.3)
     x, y, r, theta =LIA.readall() 
