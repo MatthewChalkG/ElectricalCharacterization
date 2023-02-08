@@ -46,10 +46,14 @@ class SR2124:
 
     def readall(self):
         csv = [self.readx(), self.ready(), self.readr(), self.readtheta()]
-        x = float(csv[0])
-        y = float(csv[1])
-        r = float(csv[2])
-        theta = float(csv[3])
+        try:
+            x = float(csv[0])
+            y = float(csv[1])
+            r = float(csv[2])
+            theta = float(csv[3])
+        except:
+            print('read error')
+            x,y,r,theta = [0]*4
         return x,y,r,theta
 
     def readlock(self):
