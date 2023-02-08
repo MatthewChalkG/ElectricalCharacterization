@@ -9,6 +9,12 @@ fn = "hallVoltage.txt"
 os.remove(fn)
 LIA = SR2124.SR2124('COM9')
 SPD3303x = spd3303x()
+# Add a folder for data files
+# use .format from now on
+# add automatic offset + lowest voltage
+# add frequency setting
+# add filters
+
 f = open(fn, "a")
 f.write("i,x,y,r,theta,xK\n")
 f.close()
