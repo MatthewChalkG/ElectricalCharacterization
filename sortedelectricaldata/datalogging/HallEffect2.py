@@ -5,8 +5,11 @@ import time
 import os
 from keithley2110tc import keithley2110tc
 from arduinorelayinterface import Arduino
+import time
 
 fn = "hallVoltage.txt"
+startTime = time.time() 
+
 try:
     os.remove(fn)
 except:
@@ -35,14 +38,14 @@ while True:
         i = 3.2
         
         SPD3303x.set_current(i)
-        time.sleep(2)
+        time.sleep(.5)
         x, y, r, theta =LIA.readall() 
         lockstatus = LIA.readlock()
         xK = keith.voltage()
         f = open(fn, "a")
-
-        print("i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(i*direction, x, y, r, theta, xK))
-        f.write(str(i*direction) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
+        t = time.time() - startTime
+        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(t, i*direction, x, y, r, theta, xK))
+        f.write("{}, {}, {}, {}, {}, {}, {}"+ "\n".format(t, i*direction, x, y, r, theta, xK))
         f.close()
 
     """i = 0
