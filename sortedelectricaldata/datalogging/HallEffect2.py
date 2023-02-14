@@ -45,7 +45,7 @@ while True:
         f = open(fn, "a")
         t = time.time() - startTime
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(t, i*direction, x, y, r, theta, xK))
-        f.write("{}, {}, {}, {}, {}, {}, {}"+ "\n".format(t, i*direction, x, y, r, theta, xK))
+        f.write("{}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK) + "\n")
         f.close()
 
     """i = 0
