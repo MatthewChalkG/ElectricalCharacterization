@@ -1,5 +1,5 @@
-from SR2124 import SR2124
-from SR830 import SR830
+from MachineCode.SR2124 import SR2124
+from MachineCode.SR830 import SR830
 import time
 import serial
 import numpy as np
