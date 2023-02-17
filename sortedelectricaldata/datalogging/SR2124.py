@@ -44,12 +44,15 @@ class SR2124:
     def readv(self):
         return self.readval("SLVL?")
 
+    def readsens(self):
+        return self.readval("SENS?")
+
     def readall(self):
-        csv = [self.readx(), self.ready(), self.readr(), self.readtheta()]
+        csv = [self.readx(), self.ready(), self.readr(), self.readtheta(), self.readsens()]
         try:
-            x = float(csv[0])
-            y = float(csv[1])
-            r = float(csv[2])
+            x = float(csv[0])*float(csv[4])/10
+            y = float(csv[1])*float(csv[4])/10
+            r = float(csv[2])*float(csv[4])/10
             theta = float(csv[3])
         except:
             print('read error')
