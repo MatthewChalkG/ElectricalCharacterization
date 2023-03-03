@@ -14,5 +14,12 @@ class Arduino:
     def enable_P2(self):
         self.instr.write(b'-')
 
+    def enable_P3(self):
+        self.instr.write(b'u')
+    
+    def enable_P4(self):
+        self.instr.write(b'd')
+
+
 
 

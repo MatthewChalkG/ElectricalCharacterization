@@ -1,10 +1,10 @@
-import SR2124
-from SPD3303X import spd3303x
+import MachineCode.SR2124
+from MachineCode.SPD3303X import spd3303x
 import numpy as np
 import time
 import os
-from keithley2110tc import keithley2110tc
-from arduinorelayinterface import Arduino
+from MachineCode.keithley2110tc import keithley2110tc
+from MachineCode.arduinorelayinterface import Arduino
 
 fn = "hallVoltage.txt"
 try:

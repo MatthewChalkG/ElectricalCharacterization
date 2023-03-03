@@ -1,10 +1,10 @@
-import SR2124
-from SPD3303X import spd3303x
+from MachineCode import SR2124
+from MachineCode.SPD3303X import spd3303x
 import numpy as np
 import time
 import os
-from keithley2110tc import keithley2110tc
-from arduinorelayinterface import Arduino
+from MachineCode.keithley2110tc import keithley2110tc
+from MachineCode.arduinorelayinterface import Arduino
 import time
 
 fn = "hallVoltage.txt"
@@ -14,10 +14,10 @@ try:
     os.remove(fn)
 except:
     pass
-LIA = SR2124.SR2124('COM4')
+LIA = SR2124.SR2124('COM9')
 SPD3303x = spd3303x()
 f = open(fn, "a")
-f.write("i,x,y,r,theta,xK\n")
+f.write("i,x,y,r,theta,xK,temp\n")
 f.close()
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
@@ -41,11 +41,14 @@ while True:
         time.sleep(.5)
         x, y, r, theta =LIA.readall() 
         lockstatus = LIA.readlock()
-        xK = keith.voltage()
+        #xK = keith.voltage()
+        xK = 0
+        # temp = keith.thermoCoupleTemp()
+        temp = 0
         f = open(fn, "a")
         t = time.time() - startTime
-        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(t, i*direction, x, y, r, theta, xK))
-        f.write("{}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK) + "\n")
+        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, temp: {}".format(t, i*direction, x, y, r, theta, xK, temp))
+        f.write("{}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, temp) + "\n")
         f.close()
 
     """i = 0

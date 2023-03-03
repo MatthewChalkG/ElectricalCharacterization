@@ -1,9 +1,9 @@
-import SR830
-import keithley2000gpib
-import bk5491bthermistor as bk5491b
-import keithley2110tc
+import MachineCode.SR830
+import MachineCode.keithley2000gpib
+import MachineCode.bk5491bthermistor as bk5491b
+import MachineCode.keithley2110tc
 import time
-import SR2124
+import MachineCode.SR2124
 
 fn = "logPAR124_SR830_sweeps.txt"
 
@@ -18,7 +18,7 @@ f.close()
 
 while True:
     sr2124 = LIA2.readall()[0]
-    temp_tc = 0
+    temp_tc = tc.thermoCoupleTemp()
     #res_tr, temp_tr = thermistor.fetchtemp()
     res_tr = 0
     temp_tr = 0

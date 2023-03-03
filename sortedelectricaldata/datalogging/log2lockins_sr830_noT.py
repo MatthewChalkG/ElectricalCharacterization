@@ -1,5 +1,5 @@
-import SR830
-import SR830_gpib
+import MachineCode.SR830
+import MachineCode.SR830_gpib
 import time
 
 # note: we assume two SR830 lock ins, one over serial and one over GPIB.

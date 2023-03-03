@@ -1,6 +1,6 @@
-import SR830
-import keithley2000gpib
-import bk5491bthermistor as bk5491b
+import MachineCode.SR830
+import MachineCode.keithley2000gpib
+import MachineCode.bk5491bthermistor as bk5491b
 import time
 import numpy as np
 import matplotlib.pyplot as plt

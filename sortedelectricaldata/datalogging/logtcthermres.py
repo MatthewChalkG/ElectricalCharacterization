@@ -1,6 +1,6 @@
-import bk5491bthermistor
-import keithley20004pt
-import keithley2110tc
+import MachineCode.bk5491bthermistor
+import MachineCode.keithley20004pt
+import MachineCode.keithley2110tc
 import time
 
 thermistor = bk5491bthermistor.bkthermistor('com3')

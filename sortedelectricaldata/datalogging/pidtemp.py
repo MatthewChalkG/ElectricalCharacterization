@@ -1,9 +1,9 @@
 from simple_pid import PID
 import time
 import matplotlib.pyplot as plt
-from SPD3303X import spd3303x
-from keithley2110tc import keithley2110tc
-import arduinorelayinterface
+from MachineCode.SPD3303X import spd3303x
+from MachineCode.keithley2110tc import keithley2110tc
+from MachineCode import arduinorelayinterface
 import sys
 
 logfname = "tempcontrollog.txt"
@@ -18,7 +18,7 @@ f.close()
     #approach_desired(desired_temp = 50)
     #approach_desired(desired_temp = -15)
 
-def tempSweep(max_temp, temp_interval = 1, time_interval = 60): # sweep rate degrees/second
+def tempSweep(max_temp, temp_interval = 1, time_interval = 60): # sweep rate degrees/second #time int- used to be 60
     """sweeps up to a maximum temperature at constant rate
     """
     print("running tempsweep")
@@ -47,7 +47,7 @@ def tempSweepHyst(max_temp, min_temp, temp_interval = 1, time_interval = 60): # 
 
 
 
-def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatambient = False, waittime_set = 60*5, direction = 1, p= 0.5, i = 0.005, d = 0, current_min = 0, current_max = 2, rate = 1/60, adjust_rate = 5):
+def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatambient = False, waittime_set = 60, direction = 1, p= 0.5, i = 0.005, d = 0, current_min = 0, current_max = 2, rate = 1/30, adjust_rate = 5): # rate = 1/60
     """increases/decreases desired temp. by constant rate and sets current accordingly used pid. 
     Once desired temperature is reached, waits 5 minutes for equilibrium and exits
 
@@ -59,7 +59,7 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
     """
     print("running approach_desired_exit to T=",target_temp)
     
-    supply = spd3303x()
+    supply = spd3303x(1)
     keithley = keithley2110tc()
     relays = arduinorelayinterface.Arduino('COM8')
 
@@ -198,8 +198,8 @@ def kill_function(tc_temp):
 
 
 while True:
-    tempSweepHyst(50,5)
-    tempSweepHyst(50,5)
+    tempSweepHyst(50,15) # used t obe 15
+    tempSweepHyst(50,15)
     print("Waiting for next sweep...")
     waitstarttime = time.time()
     while (time.time() - waitstarttime < 60*60*4):

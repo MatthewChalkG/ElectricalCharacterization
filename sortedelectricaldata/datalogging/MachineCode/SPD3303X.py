@@ -5,12 +5,15 @@ import matplotlib.pyplot as plt
 import pyvisa as visa
 
 class spd3303x:
-    def __init__(self):
+    def __init__(self, num = 2):
         rm = visa.ResourceManager()
         #instrument = rm.list_resources()[0]
         #self.inst = rm.open_resource(instrument)
-        self.inst = rm.open_resource('USB0::0x0483::0x7540::SPD3XIEX6R1980::INSTR')
-        #self.inst = rm.open_resource('USB0::0x0483::0x7540::SPD3XIDD5R6466::INSTR')
+        if num == 2:
+            self.inst = rm.open_resource('USB0::0x0483::0x7540::SPD3XIEX6R1980::INSTR')
+        if num == 1:
+            self.inst = rm.open_resource('USB0::0x0483::0x7540::SPD3XIDD5R6466::INSTR')
+
         self.inst.write('CH1:CURRent 0\n')
         time.sleep(0.2)
         self.inst.write('CH1:VOLTage 0\n')

@@ -1,7 +1,7 @@
-import SR830
-import keithley2000gpib
-import bk5491bthermistor as bk5491b
-import keithley2110tc
+import MachineCode.SR830
+import MachineCode.keithley2000gpib
+import MachineCode.bk5491bthermistor as bk5491b
+import MachineCode.keithley2110tc
 import time
 
 fn = "logPAR124_SR830_0degC.txt"
