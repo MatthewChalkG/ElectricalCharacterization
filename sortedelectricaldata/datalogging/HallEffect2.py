@@ -46,8 +46,8 @@ while True:
         # temp = keith.thermoCoupleTemp()
         temp = 0
         f = open(fn, "a")
-        t = time.time() - startTime
-        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, temp: {}".format(t, i*direction, x, y, r, theta, xK, temp))
+        t = time.time() # - startTime
+        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, temp: {}".format(t-startTime, i*direction, x, y, r, theta, xK, temp))
         f.write("{}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, temp) + "\n")
         f.close()
 

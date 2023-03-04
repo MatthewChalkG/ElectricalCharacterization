@@ -31,7 +31,7 @@ while True:
     print(str(currtime), temp_tc, temp_tr, sr2124, x, y, r, theta)
 
     f = open(fn, "a")
-    if not lockstatus: f.write(str(currtime)+","+str(temp_tc)+","+str(temp_tr)+","+str(res_tr)+","+str(sr2124)+","+str(x)+","+str(y)+","+str(r)+","+str(theta)+"\n")
+    if not lockstatus: f.write(str(currtime)[:2]+","+str(temp_tc)+","+str(temp_tr)+","+str(res_tr)+","+str(sr2124)+","+str(x)+","+str(y)+","+str(r)+","+str(theta)+"\n")
     f.close()
 
     time.sleep(2)
