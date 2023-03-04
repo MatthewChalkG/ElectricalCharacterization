@@ -45,7 +45,14 @@ class SR2124:
         return self.readval("SLVL?")
 
     def readsens(self):
-        return self.readval("SENS?")
+        zVal =  str(int(self.readval("SENS?")))
+        print(zVal)
+        d = {"0": 100*10**-9, "1": 200 * 10**-9, "2": 500 * 10**-9, "3": 10**-6, "4": 2*10**-6, "5": 5*10**-6, 
+        "6": 10**-5, "7": 2* 10**-5, "8": 5 * 10**-5,
+        "9": 10**-4, "10": 2*10**-4, "11": 5 * 10**-4,
+        "12": 10**-3, "13": 2* 10**-3, "14": 5*10**-3,
+        "15": .01, "16": .02, "17": .05, "18": .1, "19":.2, "20":.5}
+        return d[zVal]
 
     def readall(self):
         csv = [self.readx(), self.ready(), self.readr(), self.readtheta(), self.readsens()]
