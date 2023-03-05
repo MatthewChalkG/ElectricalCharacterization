@@ -18,11 +18,11 @@ except:
 LIA = SR2124.SR2124('COM9')
 SPD3303x = spd3303x()
 f = open(fn, "a")
-f.write("t,i,x,y,r,theta,xK,temp\n")
+f.write("t,i,x,y,r,theta,xK,tc, therm\n")
 f.close()
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
-keith = keithley2110tc()
+#keith = keithley2110tc(1)
 relay = Arduino("COM3")
 
 while True:
@@ -42,14 +42,17 @@ while True:
         time.sleep(.5)
         x, y, r, theta =LIA.readall() 
         lockstatus = LIA.readlock()
-        xK = keith.voltage() * LIA.readsens()/10
-        #xK = 0
-        temp = keith.thermoCoupleTemp()
+        # xK = keith.voltage() * LIA.readsens()/10
+        xK = 0
+        # tc = keith.thermoCoupleTemp()
+        tc = 0
+        #therm = keith.resistance()
+        therm = 0
         #temp = 0
         f = open(fn, "a")
         t = time.time() # - startTime
-        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, temp: {}".format(t-startTime, i*direction, x, y, r, theta, xK, temp))
-        f.write("{}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, temp) + "\n")
+        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm))
+        f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm) + "\n")
         f.close()
 
     """i = 0

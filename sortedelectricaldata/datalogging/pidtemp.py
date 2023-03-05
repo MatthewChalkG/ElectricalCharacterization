@@ -60,7 +60,7 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
     print("running approach_desired_exit to T=",target_temp)
     
     supply = spd3303x(1)
-    keithley = keithley2110tc()
+    keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
 
     tc_temp = keithley.thermoCoupleTemp()
@@ -147,7 +147,7 @@ def approach_desired(prev_val = None, max_temp = 10, p= 0.5, i = 0.02, d = 0, cu
     print("running approach_desired")
     
     supply = spd3303x()
-    keithley = keithley2110tc()
+    keithley = keithley2110tc(2)
 
     
     tc_temp = keithley.thermoCoupleTemp()
