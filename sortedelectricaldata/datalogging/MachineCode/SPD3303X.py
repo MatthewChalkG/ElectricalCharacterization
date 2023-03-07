@@ -21,12 +21,18 @@ class spd3303x:
 
         #print(self.inst.read())
 
-    def set_voltage(self, voltage):
-        self.inst.write('CH1:VOLTage ' + str(voltage) + '\n')
+    def set_voltage(self, voltage, channel = 1):
+        if channel == 1:
+            self.inst.write('CH1:VOLTage ' + str(voltage) + '\n')
+        else:
+            self.inst.write('CH2:VOLTage ' + str(voltage) + '\n')
         time.sleep(0.2)
 
-    def set_current(self, current):
-        self.inst.write('CH1:CURRent ' + str(current) + '\n')
+    def set_current(self, current, channel = 1):
+        if channel == 1:    
+            self.inst.write('CH1:CURRent ' + str(current) + '\n')
+        else:
+            self.inst.write('CH2:CURRent ' + str(current) + '\n')
         time.sleep(0.2)
 
 
