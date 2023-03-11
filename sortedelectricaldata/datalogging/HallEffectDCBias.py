@@ -18,7 +18,7 @@ except:
 LIA = SR2124.SR2124('COM5')
 SPD3303x = spd3303x()
 f = open(fn, "a")
-f.write("t,i,x,y,r,theta,xK,tc, therm, dc\n")
+f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
@@ -74,6 +74,8 @@ for dc in np.linspace(0, 12, 37):
     f.write(str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
     f.close()"""
     
+SPD3303x.set_voltage(0, channel = 2)
+SPD3303x.set_current(0, channel = 2)    
 SPD3303x.set_current(0)
 
     
