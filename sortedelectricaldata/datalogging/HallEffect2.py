@@ -15,7 +15,7 @@ try:
 except:
     pass
 
-LIA = SR2124.SR2124('COM9')
+LIA = SR2124.SR2124('COM5')
 SPD3303x = spd3303x()
 f = open(fn, "a")
 f.write("t,i,x,y,r,theta,xK,tc, therm\n")
