@@ -88,7 +88,7 @@ class SR2124:
     
     def autoOffset(self):
         self.ser.write(("AOFX"+'\r\n').encode('utf-8'))
-        time.sleep(.3)
+        time.sleep(1)
         self.ser.write(("AOFY"+'\r\n').encode('utf-8'))
     
 
