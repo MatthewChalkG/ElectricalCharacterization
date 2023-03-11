@@ -31,7 +31,7 @@ SPD3303x.set_voltage(0, channel = 2) # safety control
 relay = Arduino("COM3")
 
 for dc in np.linspace(0, 12, 37):
-    SPD3303x.set_voltage(dc)
+    SPD3303x.set_voltage(dc, channel = 2)
 
     for direction in [1, -1]:
         SPD3303x.set_current(0)
