@@ -9,6 +9,7 @@ import time
 
 fn = "hallDCBias.txt"
 startTime = time.time() 
+biasD = -1
 
 try:
     os.remove(fn)
@@ -58,8 +59,8 @@ for dc in np.linspace(0, 12, 37):
         #temp = 0
         f = open(fn, "a")
         t = time.time() # - startTime
-        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, dc))
-        f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc) + "\n")
+        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD))
+        f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
         f.close()
 
     """i = 0
