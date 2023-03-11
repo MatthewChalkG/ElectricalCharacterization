@@ -9,7 +9,7 @@ import time
 
 fn = "hallDCBias.txt"
 startTime = time.time() 
-biasD = 1
+biasD = -1
 
 try:
     os.remove(fn)
