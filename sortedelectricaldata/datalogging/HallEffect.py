@@ -21,25 +21,25 @@ SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
 
 
-while True:
-    for direction in [(0, 3.2), (3.2, 0), (0, -3.2), (-3.2,0)]: 
-        for i in np.linspace(direction[0], direction[1], 20):
-            if direction[0] > -1 and direction[1] > -1:
-                relay.enable_P1()
-            else:
-                relay.enable_P2()
-            
-            SPD3303x.set_current(abs(i))
-            time.sleep(.7)
-            x, y, r, theta = LIA.readall() 
 
-            lockstatus = LIA.readlock()
-            xK = 0
-            f = open("Data/"+fn, "a")
+for direction in [(0, 3.2), (3.2, 0), (0, -3.2), (-3.2,0)]: 
+    for i in np.linspace(direction[0], direction[1], 20):
+        if direction[0] > -1 and direction[1] > -1:
+            relay.enable_P1()
+        else:
+            relay.enable_P2()
+        
+        SPD3303x.set_current(abs(i))
+        time.sleep(.7)
+        x, y, r, theta = LIA.readall() 
 
-            print("i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(i, x, y, r, theta, xK))
-            f.write(str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
-            f.close()
+        lockstatus = LIA.readlock()
+        xK = 0
+        f = open("Data/"+fn, "a")
+
+        print("i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(i, x, y, r, theta, xK))
+        f.write(str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
+        f.close()
 
 
 SPD3303x.set_current(0)
