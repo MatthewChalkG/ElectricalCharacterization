@@ -33,7 +33,7 @@ relay = Arduino("COM3")
 
 for dc in np.linspace(0, 12, 37):
     SPD3303x.set_voltage(dc, channel = 2)
-
+    LIA.autoOffset()
     for direction in [1, -1]:
         SPD3303x.set_current(0)
         time.sleep(1)
