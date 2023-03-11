@@ -27,7 +27,7 @@ while True:
                 relay.enable_P2()
             
             SPD3303x.set_current(abs(i))
-            time.sleep(1)
+            time.sleep(.7)
             x, y, r, theta = LIA.readall() 
 
             lockstatus = LIA.readlock()
