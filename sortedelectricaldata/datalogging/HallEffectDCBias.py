@@ -31,7 +31,7 @@ SPD3303x.set_voltage(0, channel = 2) # safety control
 #keith = keithley2110tc(1)
 relay = Arduino("COM3")
 
-for dc in np.linspace(0, .2, 20):
+for dc in np.linspace(0, .01, 11):
     SPD3303x.set_voltage(dc, channel = 2)
     LIA.autoOffset()
     for direction in [1, -1]:
