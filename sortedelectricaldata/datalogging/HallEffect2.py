@@ -7,17 +7,18 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 import time
 
-fn = "hallVoltage.txt"
 startTime = time.time() 
 
-try:
-    os.remove(fn)
-except:
-    pass
+timeStamp = str(time.time())[3:10]
+fn = "hallVoltageSweep{}.txt".format(timeStamp)
+f = open("Data/"+fn, "a")
+f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
+f.close()
+
 
 LIA = SR2124.SR2124('COM5')
 SPD3303x = spd3303x()
-f = open(fn, "a")
+f = open("Data/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK,tc, therm\n")
 f.close()
 SPD3303x.set_voltage(5)
@@ -49,7 +50,7 @@ while True:
         #therm = keith.resistance()
         therm = 0
         #temp = 0
-        f = open(fn, "a")
+        f = open("Data/"+fn, "a")
         t = time.time() # - startTime
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm))
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm) + "\n")

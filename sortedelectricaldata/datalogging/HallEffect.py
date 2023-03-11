@@ -6,16 +6,20 @@ import os
 from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 
-fn = "hallVoltage.txt"
-#os.remove(fn)
+
+timeStamp = str(time.time())[3:10]
+fn = "hallVoltageSweep{}.txt".format(timeStamp)
+f = open("Data/"+fn, "a")
+f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
+f.close()
+
 LIA = SR2124.SR2124('COM5')
 SPD3303x = spd3303x()
-f = open(fn, "a")
-f.write("i,x,y,r,theta,xK\n")
-f.close()
+relay = Arduino("COM3")
+
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
-relay = Arduino("COM3")
+
 
 while True:
     for direction in [(0, 3.2), (3.2, 0), (0, -3.2), (-3.2,0)]: 
@@ -31,7 +35,7 @@ while True:
 
             lockstatus = LIA.readlock()
             xK = 0
-            f = open(fn, "a")
+            f = open("Data/"+fn, "a")
 
             print("i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(i, x, y, r, theta, xK))
             f.write(str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
