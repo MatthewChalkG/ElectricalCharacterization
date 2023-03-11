@@ -43,5 +43,5 @@ for direction in [(0, 3.2), (3.2, 0), (0, -3.2), (-3.2,0)]:
 
 
 SPD3303x.set_current(0)
-
+print(fn)
     
