@@ -31,6 +31,8 @@ SPD3303x.set_voltage(0, channel = 2) # safety control
 for dc in np.linspace(0, 12, 75):
     SPD3303x.set_voltage(dc, channel = 2)
     LIA.autoOffsetX()
+    time.sleep(4)
+    LIA.autoOffsetY()
     for direction in [1, -1]:
         SPD3303x.set_current(0)
         time.sleep(1)
@@ -59,8 +61,7 @@ for dc in np.linspace(0, 12, 75):
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD))
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
         f.close()
-        if direction == 1:
-            LIA.autoOffsetY()
+
 
 
     """i = 0
