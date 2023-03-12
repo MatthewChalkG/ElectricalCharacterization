@@ -15,7 +15,7 @@ f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
 
 startTime = time.time() 
-biasD = -1
+biasD = 1
 
 LIA = SR2124.SR2124('COM5')
 SPD3303x = spd3303x()
@@ -59,7 +59,9 @@ for dc in np.linspace(0, 12, 75):
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD))
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
         f.close()
-    LIA.autoOffsetY()
+        if direction == 1:
+            LIA.autoOffsetY()
+
 
     """i = 0
     SPD3303x.set_current(i)
