@@ -97,20 +97,20 @@ class SR2124:
         
         if ovld == 8:
             self.autoOffsetX()
-            time.sleep(4)
+            time.sleep(12)
 
         elif ovld == 16:
             self.autoOffsetY()
-            time.sleep(4)
+            time.sleep(12)
 
         elif ovld == 24:
             self.autoOffsetX()
-            time.sleep(4)
+            time.sleep(12)
             self.autoOffsetY()
-            time.sleep(4)
+            time.sleep(12)
         
         elif ovld != 0:
             self.autoOffsetX()
-            time.sleep(4)
+            time.sleep(12)
             self.autoOffsetY()
-            time.sleep(4)
+            time.sleep(12)
