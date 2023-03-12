@@ -93,3 +93,24 @@ class SR2124:
         self.ser.write(("AOFY"+'\r\n').encode('utf-8'))
     
 
+    def overloadDetect(self):
+        ovld = self.ser.write(("OVLD?"+'\r\n').encode('utf-8'))
+        if ovld == 8:
+            autoOffsetX()
+            time.sleep(4)
+
+        elif ovld == 16:
+            autoOffsetY()
+            time.sleep(4)
+
+        elif ovld == 24:
+            autoOffsetX()
+            time.sleep(4)
+            autoOffsetY()
+            time.sleep(4)
+        
+        elif ovld != 0:
+            autoOffsetX()
+            time.sleep(4)
+            autoOffsetY()
+            time.sleep(4)
