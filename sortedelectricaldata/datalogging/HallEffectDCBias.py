@@ -28,7 +28,7 @@ SPD3303x.set_current(0)
 SPD3303x.set_current(.05, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(0, 12, 75):
+for dc in np.linspace(0, 12, 37):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(.5)
     LIA.overloadDetect()
@@ -46,7 +46,7 @@ for dc in np.linspace(0, 12, 75):
         i = 3.2
         
         SPD3303x.set_current(i)
-        time.sleep(.5)
+        time.sleep(1.5)
         x, y, r, theta =LIA.readall() 
         lockstatus = LIA.readlock()
         # xK = keith.voltage() * LIA.readsens()/10
