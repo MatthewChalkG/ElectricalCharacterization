@@ -31,7 +31,7 @@ SPD3303x.set_voltage(0, channel = 2) # safety control
 for dc in np.linspace(0, 12, 75):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(.5)
-    overloadDetect()
+    LIA.overloadDetect()
 
     for direction in [1, -1]:
         SPD3303x.set_current(0)
