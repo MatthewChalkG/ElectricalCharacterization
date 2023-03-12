@@ -28,7 +28,7 @@ SPD3303x.set_current(0)
 SPD3303x.set_current(.05, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(0, .01, 11):
+for dc in np.linspace(0, 12, 75):
     SPD3303x.set_voltage(dc, channel = 2)
     LIA.autoOffset()
     for direction in [1, -1]:
