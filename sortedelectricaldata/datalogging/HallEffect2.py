@@ -12,15 +12,12 @@ startTime = time.time()
 timeStamp = str(time.time())[3:10]
 fn = "hallVoltageSweep{}.txt".format(timeStamp)
 f = open("Data/"+fn, "a")
-f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
+f.write("t,i,x,y,r,theta,xK,tc, therm\n")
 f.close()
-
 
 LIA = SR2124.SR2124('COM5')
 SPD3303x = spd3303x()
-f = open("Data/"+fn, "a")
-f.write("t,i,x,y,r,theta,xK,tc, therm\n")
-f.close()
+
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
 #keith = keithley2110tc(1)
