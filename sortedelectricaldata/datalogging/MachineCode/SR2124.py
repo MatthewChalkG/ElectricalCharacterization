@@ -86,9 +86,10 @@ class SR2124:
     def onb(self, yn):
         self.ser.write(("BION"+str(yn)+'\r\n').encode('utf-8'))
     
-    def autoOffset(self):
+    def autoOffsetX(self):
         self.ser.write(("AOFX"+'\r\n').encode('utf-8'))
-        time.sleep(1)
+
+    def autoOffsetY(self):
         self.ser.write(("AOFY"+'\r\n').encode('utf-8'))
     
 
