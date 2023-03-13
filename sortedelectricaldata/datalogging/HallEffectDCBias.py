@@ -15,7 +15,7 @@ f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
 
 startTime = time.time() 
-biasD = 1
+biasD = -1
 
 LIA = SR2124.SR2124('COM5')
 SPD3303x = spd3303x()
@@ -28,7 +28,7 @@ SPD3303x.set_current(0)
 SPD3303x.set_current(.05, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(0, 32, 65):
+for dc in np.linspace(0, 32, 129):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(.5)
     LIA.overloadDetect()
