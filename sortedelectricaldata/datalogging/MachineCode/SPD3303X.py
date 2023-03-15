@@ -35,5 +35,9 @@ class spd3303x:
             self.inst.write('CH2:CURRent ' + str(current) + '\n')
         time.sleep(0.2)
 
+    def read_voltage():
+        voltage = float(self.inst.query('volt?'))
+        return voltage
+
 
 
