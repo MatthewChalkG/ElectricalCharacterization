@@ -9,7 +9,9 @@ import time
 
 
 timeStamp = str(time.time())[3:10]
-fn = "hallDCBias{}.txt".format(timeStamp)
+#fn = "hallDCBias{}.txt".format(timeStamp)
+fn = "resistivity{}.txt".format(timeStamp)
+
 f = open("Data/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
@@ -28,7 +30,7 @@ SPD3303x.set_current(0)
 SPD3303x.set_current(.05, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(10, 20, 20):
+for dc in np.linspace(0, 32, 33):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(.5)
     LIA.overloadDetect()
