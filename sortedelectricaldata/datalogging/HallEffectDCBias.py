@@ -9,8 +9,7 @@ import time
 
 
 timeStamp = str(time.time())[3:10]
-#fn = "hallDCBias{}.txt".format(timeStamp)
-fn = "resistivity{}.txt".format(timeStamp)
+fn = "hallDCBias{}.txt".format(timeStamp)
 
 f = open("Data/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
