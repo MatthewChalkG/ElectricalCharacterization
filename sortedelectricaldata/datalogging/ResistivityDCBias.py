@@ -29,9 +29,9 @@ SPD3303x.set_current(0)
 SPD3303x.set_current(.05, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(0, 32, 33):
+for dc in np.linspace(0, 32, 97):
     SPD3303x.set_voltage(dc, channel = 2)
-    time.sleep(2)
+    time.sleep(1.5)
     LIA.overloadDetect()
 
 
@@ -40,14 +40,15 @@ for dc in np.linspace(0, 32, 33):
     # xK = keith.voltage() * LIA.readsens()/10
     xK = 0
     # tc = keith.thermoCoupleTemp()
+    i = 0
     tc = 0
     #therm = keith.resistance()
     therm = 0
     #temp = 0
     f = open("Data/"+fn, "a")
     t = time.time() # - startTime
-    print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD))
-    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
+    print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc*biasD))
+    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
     f.close()
 
 
