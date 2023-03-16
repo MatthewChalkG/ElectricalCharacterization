@@ -64,4 +64,5 @@ time.sleep(3)
 LIA.autoOffsetY()
 
 def voltage_stepDown(inst, channel):
-    pass
+    current_voltage = inst.read_voltage(channel)
+    #while 
