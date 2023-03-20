@@ -11,7 +11,7 @@ f = open(logfname,"a")
 f.write("time,desired temp,current,tc_temp\n")
 f.close()
 
-def main(desired_temp = 33, p= 0.5, i = .02 , d = 0): # i = .02
+def main(desired_temp = 25, p= 0.5, i = .02 , d = 0): # i = .02
     supply = spd3303x(1)
     keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
