@@ -37,7 +37,6 @@ def main(desired_temp = 25, p= 0.5, i = .02 , d = 0): # i = .02
         pid.setpoint = desired_temp * heat
         current = pid(tc_temp*heat)
 
-        print(desired_temp, current)
         supply.set_current(current)
 
         current_time = time.time()
