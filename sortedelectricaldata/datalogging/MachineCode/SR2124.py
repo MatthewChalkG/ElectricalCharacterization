@@ -27,10 +27,10 @@ class SR2124:
             else: return out
 
     def readx(self):
-        return self.readval("OUTX?")
+        return self.readval("ORIX?")
     
     def ready(self):
-        return self.readval("OUTY?")
+        return self.readval("ORIY?")
 
     def readr(self):
         return self.readval("MAGI?")
@@ -55,11 +55,11 @@ class SR2124:
         return d[zVal]
 
     def readall(self):
-        csv = [self.readx(), self.ready(), self.readr(), self.readtheta(), self.readsens()]
+        csv = [self.readx(), self.ready(), self.readr(), self.readtheta()] #, self.readsens()]
         try:
-            x = float(csv[0])*float(csv[4])/10
-            y = float(csv[1])*float(csv[4])/10
-            r = float(csv[2])*float(csv[4])/10
+            x = float(csv[0])#*float(csv[4])/10
+            y = float(csv[1])#*float(csv[4])/10
+            r = float(csv[2])#*float(csv[4])/10
             theta = float(csv[3])
         except:
             print('read error')
