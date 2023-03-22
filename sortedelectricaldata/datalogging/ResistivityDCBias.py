@@ -26,10 +26,10 @@ relay = Arduino("COM3")
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
 
-SPD3303x.set_current(.25, channel = 2) # safety control
+SPD3303x.set_current(.03, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(0,30, 151):
+for dc in np.linspace(0,2, 101):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(1.5)
     LIA.overloadDetect()
@@ -51,7 +51,7 @@ for dc in np.linspace(0,30, 151):
     f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
     f.close()
 
-for dc in np.linspace(30,0, 151):
+for dc in np.linspace(2,0, 101):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(1.5)
     LIA.overloadDetect()
