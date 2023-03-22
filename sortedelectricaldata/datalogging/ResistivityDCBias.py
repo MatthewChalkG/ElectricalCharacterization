@@ -85,6 +85,11 @@ LIA.autoOffsetX()
 time.sleep(3)
 LIA.autoOffsetY()
 
+from playsound import playsound
+while True:
+    playsound('zapsplat_animals_dog_medium_sized_single_bark_slight_distance_002_70617.wav')
+
+
 def voltage_stepDown(inst, channel):
     current_voltage = inst.read_voltage(channel)
     #while 
