@@ -4,7 +4,7 @@ import numpy as np
 
 class SR830:
     # configure the serial connections
-    def __init__(self, comport):
+    def __init__(self, comport="COM9"):
         self.ser = serial.Serial(
             port=comport,
             baudrate=9600

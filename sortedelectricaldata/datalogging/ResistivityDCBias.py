@@ -18,7 +18,7 @@ f.close()
 startTime = time.time() 
 biasD = -1
 
-LIA = SR2124.SR2124('COM5')
+LIA = SR2124.SR2124('COM7')
 SPD3303x = spd3303x()
 relay = Arduino("COM3")
 
