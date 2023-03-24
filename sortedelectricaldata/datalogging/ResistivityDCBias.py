@@ -26,10 +26,10 @@ relay = Arduino("COM3")
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
 
-SPD3303x.set_current(.03, channel = 2) # safety control
+SPD3303x.set_current(.01, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(0,2, 51):
+for dc in np.linspace(0,10, 51):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(1.5)
     LIA.overloadDetect()
@@ -51,7 +51,7 @@ for dc in np.linspace(0,2, 51):
     f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
     f.close()
 
-for dc in np.linspace(2,0, 51):
+for dc in np.linspace(10,0, 51):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(1.5)
     LIA.overloadDetect()
@@ -85,9 +85,9 @@ LIA.autoOffsetX()
 time.sleep(3)
 LIA.autoOffsetY()
 
-from playsound import playsound
-while True:
-    playsound('sound1.mp3')
+#from playsound import playsound
+#while True:
+   # playsound('sound1.mp3')
 
 
 def voltage_stepDown(inst, channel):
