@@ -9,7 +9,7 @@ import time
 
 ######################
 # Sweep parameters
-biasD = -1
+biasD = 1
 maxV = 10
 numPoints = 51
 up = True
