@@ -10,7 +10,7 @@ import time
 ######################
 # Sweep parameters
 biasD = 1
-maxV = 10
+maxV = 32
 numPoints = 51
 up = True
 down = True
@@ -33,7 +33,7 @@ relay = Arduino("COM3")
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
 
-SPD3303x.set_current(.002, channel = 2) # safety control
+SPD3303x.set_current(.004, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
 for i in ["up", "down"]:
