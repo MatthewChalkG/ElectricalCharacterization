@@ -7,7 +7,16 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 import time
 
+######################
+# Sweep parameters
+biasD = -1
+maxV = 10
+numPoints = 51
+up = True
+down = True
+#######################
 
+startTime = time.time() 
 timeStamp = str(time.time())[3:10]
 fn = "resistivity{}.txt".format(timeStamp)
 
@@ -15,8 +24,6 @@ f = open("Data/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
 
-startTime = time.time() 
-biasD = -1
 
 LIA = SR2124.SR2124('COM7')
 SPD3303x = spd3303x()
@@ -29,49 +36,41 @@ SPD3303x.set_current(0)
 SPD3303x.set_current(.002, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(0,2, 26):
-    SPD3303x.set_voltage(dc, channel = 2)
-    time.sleep(1.5)
-    LIA.overloadDetect()
+for i in ["up", "down"]:
+    if i == "up":
+        if up == True:
+            sweepSpace = np.linspace(0, maxV, numPoints)
+        else:
+            break
+
+    elif i == "down":
+        if down == True:
+            sweepSpace = np.linspace(maxV, 0, numPoints)
+        else:
+            break
+
+    for dc in sweepSpace:
+        SPD3303x.set_voltage(dc, channel = 2)
+        time.sleep(1.5)
+        LIA.overloadDetect()
 
 
-    x, y, r, theta =LIA.readall() 
-    lockstatus = LIA.readlock()
-    # xK = keith.voltage() * LIA.readsens()/10
-    xK = 0
-    # tc = keith.thermoCoupleTemp()
-    i = 0
-    tc = 0
-    #therm = keith.resistance()
-    therm = 0
-    #temp = 0
-    f = open("Data/"+fn, "a")
-    t = time.time() # - startTime
-    print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc*biasD))
-    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
-    f.close()
+        x, y, r, theta =LIA.readall() 
+        lockstatus = LIA.readlock()
+        # xK = keith.voltage() * LIA.readsens()/10
+        xK = 0
+        # tc = keith.thermoCoupleTemp()
+        i = 0
+        tc = 0
+        #therm = keith.resistance()
+        therm = 0
+        #temp = 0
+        f = open("Data/"+fn, "a")
+        t = time.time() # - startTime
+        print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc*biasD))
+        f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
+        f.close()
 
-for dc in np.linspace(2,0, 26):
-    SPD3303x.set_voltage(dc, channel = 2)
-    time.sleep(1.5)
-    LIA.overloadDetect()
-
-
-    x, y, r, theta =LIA.readall() 
-    lockstatus = LIA.readlock()
-    # xK = keith.voltage() * LIA.readsens()/10
-    xK = 0
-    # tc = keith.thermoCoupleTemp()
-    i = 0
-    tc = 0
-    #therm = keith.resistance()
-    therm = 0
-    #temp = 0
-    f = open("Data/"+fn, "a")
-    t = time.time() # - startTime
-    print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc*biasD))
-    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
-    f.close()
 
 
 
