@@ -29,7 +29,7 @@ SPD3303x.set_current(0)
 SPD3303x.set_current(.002, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
-for dc in np.linspace(0,1, 26):
+for dc in np.linspace(0,2, 26):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(1.5)
     LIA.overloadDetect()
@@ -51,7 +51,7 @@ for dc in np.linspace(0,1, 26):
     f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
     f.close()
 
-for dc in np.linspace(1,0, 26):
+for dc in np.linspace(2,0, 26):
     SPD3303x.set_voltage(dc, channel = 2)
     time.sleep(1.5)
     LIA.overloadDetect()
