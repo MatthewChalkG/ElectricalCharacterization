@@ -16,7 +16,7 @@ f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
 
 startTime = time.time() 
-biasD = -1
+biasD = 1
 
 LIA = SR2124.SR2124('COM7')
 SPD3303x = spd3303x()
@@ -26,7 +26,7 @@ relay = Arduino("COM3")
 SPD3303x.set_voltage(5)
 SPD3303x.set_current(0)
 
-SPD3303x.set_current(.01, channel = 2) # safety control
+SPD3303x.set_current(.002, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
 
 for dc in np.linspace(0,10, 51):
