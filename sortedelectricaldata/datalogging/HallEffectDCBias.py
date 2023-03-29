@@ -32,7 +32,8 @@ relay = Arduino("COM3")
 SPD3303x1.set_voltage(5)
 SPD3303x1.set_current(0)
 
-SPD3303x2.set_current(.05, channel = 2) # safety control
+
+SPD3303x2.set_current(.005) # safety control
 SPD3303x2.set_series_voltage(0) # safety control
 
 for dc in np.linspace(0, maxV, sweepRate):
@@ -63,7 +64,7 @@ for dc in np.linspace(0, maxV, sweepRate):
         #therm = keith.resistance()
         therm = 0
         #temp = 0
-        f = open("Data/"+fn, "a")
+        f = open("Data/HallEffectDCBias/"+fn, "a")
         t = time.time() # - startTime
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD))
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")

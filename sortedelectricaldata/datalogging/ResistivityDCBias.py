@@ -9,7 +9,7 @@ import time
 
 ######################
 # Sweep parameters
-biasD = 1
+biasD = -1
 maxV = 60
 numPoints = 61
 up = True
@@ -30,7 +30,7 @@ SPD3303x = spd3303x(2)
 relay = Arduino("COM3")
 
 
-SPD3303x.set_current(.004, channel = 2) # safety control
+SPD3303x.set_current(.007) # safety control
 SPD3303x.set_series_voltage(0) # safety control
 
 for i in ["up", "down"]:
@@ -62,7 +62,7 @@ for i in ["up", "down"]:
         #therm = keith.resistance()
         therm = 0
         #temp = 0
-        f = open("Data/"+fn, "a")
+        f = open("Data/ResistivityDCBias/"+fn, "a")
         t = time.time() # - startTime
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc*biasD))
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
