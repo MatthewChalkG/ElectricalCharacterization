@@ -11,13 +11,13 @@ from MachineCode.arduinorelayinterface import Arduino
 sweepRate = 20
 #######################
 
-timeStamp = str(time.time)[:10]
+timeStamp = str(time.time())[:10]
 fn = "hallSweep{}.txt".format(timeStamp)
-f = open("Data/HallSweep/"+fn, "a")
+f = open("Data/HallSweep/"+fn, "w+")
 f.write("t,i,x,y,r,theta,xK\n")
 f.close()
 
-LIA = SR2124.SR2124('COM5')
+LIA = SR2124.SR2124('COM7')
 SPD3303x = spd3303x()
 relay = Arduino("COM3")
 

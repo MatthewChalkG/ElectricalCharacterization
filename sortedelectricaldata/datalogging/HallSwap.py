@@ -7,13 +7,14 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 import time
 
+startTime = time.time()
 timeStamp = str(time.time())[:10]
 fn = "hallSwap{}.txt".format(timeStamp)
 f = open("Data/HallSwap/"+fn, "w+")
 f.write("t,i,x,y,r,theta,xK,tc, therm\n")
 f.close()
 
-LIA = SR2124.SR2124('COM5')
+LIA = SR2124.SR2124('COM7')
 SPD3303x = spd3303x()
 
 SPD3303x.set_voltage(5)
