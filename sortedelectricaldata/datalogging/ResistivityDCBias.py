@@ -11,7 +11,7 @@ import time
 # Sweep parameters
 biasD = -1
 maxV = 60
-numPoints = 61
+numPoints = 121
 up = True
 down = True
 #######################
