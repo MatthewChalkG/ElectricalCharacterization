@@ -26,7 +26,7 @@ SR830 = SR830('COM4')
 timeStamp = str(time.time())
 fn = "differential_resistance_{}.txt".format(timeStamp)
 
-f = open("Data/differential_resistance/"+fn, "a")
+f = open("Data/Differential_Resistance/"+fn, "a")
 f.write("t,f2,b2,v2,x2,y2,r2,theta2,x8,y8,r8,theta8\n")
 f.close()
 
@@ -47,8 +47,7 @@ for sweepSpace in a:
 
         print(f2,b2,v2,x2,y2,r2,theta2, x8, y8, r8, theta8)
         t = time.time()
-
+        f = open("Data/Differential_Resistance/"+fn, "a")
         f.write(("{},"*11 + '{}\n').format(t,f2,b2,v2,x2,y2,r2,theta2, x8, y8, r8, theta8))
+        f.close()
 
-
-f.close()
