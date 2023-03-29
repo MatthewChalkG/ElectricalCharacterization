@@ -16,8 +16,8 @@ up = True
 down = True
 #######################
 
-startTime = time.time() 
-timeStamp = str(time.time())[3:10]
+
+timeStamp = str(time.time())
 fn = "resistivity{}.txt".format(timeStamp)
 
 f = open("Data/ResistivityDCBias/"+fn, "a")
@@ -29,9 +29,6 @@ LIA = SR2124.SR2124('COM7')
 SPD3303x = spd3303x()
 relay = Arduino("COM3")
 
-
-SPD3303x.set_voltage(5)
-SPD3303x.set_current(0)
 
 SPD3303x.set_current(.004, channel = 2) # safety control
 SPD3303x.set_voltage(0, channel = 2) # safety control
@@ -83,6 +80,9 @@ for i in ["up", "down"]:
 LIA.autoOffsetX()
 time.sleep(3)
 LIA.autoOffsetY()
+
+SPD3303x.set_current(0, channel = 2) # safety control
+SPD3303x.set_voltage(0, channel = 2) # safety control
 
 #from playsound import playsound
 #while True:
