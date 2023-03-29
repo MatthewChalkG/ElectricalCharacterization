@@ -10,28 +10,28 @@ import time
 ######################
 # Sweep parameters
 biasD = 1
-maxV = 32
-numPoints = 51
+maxV = 60
+numPoints = 61
 up = True
 down = True
 #######################
 
-
-timeStamp = str(time.time())
+startTime = time.time()
+timeStamp = str(time.time())[:10]
 fn = "resistivity{}.txt".format(timeStamp)
 
-f = open("Data/ResistivityDCBias/"+fn, "a")
+f = open("Data/ResistivityDCBias/"+fn, "w+")
 f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
 
 
 LIA = SR2124.SR2124('COM7')
-SPD3303x = spd3303x()
+SPD3303x = spd3303x(2)
 relay = Arduino("COM3")
 
 
 SPD3303x.set_current(.004, channel = 2) # safety control
-SPD3303x.set_voltage(0, channel = 2) # safety control
+SPD3303x.set_series_voltage(0) # safety control
 
 for i in ["up", "down"]:
     if i == "up":
@@ -47,7 +47,7 @@ for i in ["up", "down"]:
             break
 
     for dc in sweepSpace:
-        SPD3303x.set_voltage(dc, channel = 2)
+        SPD3303x.set_series_voltage(dc)
         time.sleep(1.5)
         LIA.overloadDetect()
 
@@ -82,7 +82,7 @@ time.sleep(3)
 LIA.autoOffsetY()
 
 SPD3303x.set_current(0, channel = 2) # safety control
-SPD3303x.set_voltage(0, channel = 2) # safety control
+SPD3303x.set_series_voltage(0) # safety control
 
 #from playsound import playsound
 #while True:

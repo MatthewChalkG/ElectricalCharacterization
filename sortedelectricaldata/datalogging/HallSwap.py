@@ -7,9 +7,9 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 import time
 
-timeStamp = str(time.time())
+timeStamp = str(time.time())[:10]
 fn = "hallSwap{}.txt".format(timeStamp)
-f = open("Data/HallSwap/"+fn, "a")
+f = open("Data/HallSwap/"+fn, "w+")
 f.write("t,i,x,y,r,theta,xK,tc, therm\n")
 f.close()
 
@@ -45,7 +45,7 @@ while True:
         #therm = keith.resistance()
         therm = 0
         #temp = 0
-        f = open("Data/"+fn, "a")
+        f = open("Data/HallSwap/"+fn, "a")
         t = time.time() # - startTime
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm))
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm) + "\n")

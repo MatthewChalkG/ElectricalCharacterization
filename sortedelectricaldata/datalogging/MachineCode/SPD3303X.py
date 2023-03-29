@@ -39,11 +39,11 @@ class spd3303x:
             self.inst.write('CH2:CURRent ' + str(current) + '\n')
         time.sleep(0.2)
 
-    def read_voltage(channel):
+    def read_voltage(self, channel):
         voltage = float(self.inst.query('CH{}: VOLTage?'.format(str(channel))))
         return voltage
 
-    def set_series_voltage(channel = 1):
+    def set_series_voltage(self, voltage):
         self.inst.write('CH1:VOLTage ' + str(voltage/2) + '\n')
         time.sleep(0.2)
 

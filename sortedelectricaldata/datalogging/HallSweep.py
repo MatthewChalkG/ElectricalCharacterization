@@ -11,7 +11,7 @@ from MachineCode.arduinorelayinterface import Arduino
 sweepRate = 20
 #######################
 
-timeStamp = str(time.time)
+timeStamp = str(time.time)[:10]
 fn = "hallSweep{}.txt".format(timeStamp)
 f = open("Data/HallSweep/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK\n")
@@ -39,7 +39,7 @@ for direction in [(0, 3.2), (3.2, 0), (0, -3.2), (-3.2,0)]:
 
         lockstatus = LIA.readlock()
         xK = 0
-        f = open("Data/"+fn, "a")
+        f = open("Data/HallSweep/"+fn, "a")
         t = time.time()
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(t-startTime, i, x, y, r, theta, xK))
         f.write(str(t) + ',' + str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")

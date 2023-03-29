@@ -13,10 +13,10 @@ sweepRate = 33
 maxV = 32
 #######################
 
-timeStamp = str(time.time())
+timeStamp = str(time.time())[:10]
 fn = "hallDCBias{}.txt".format(timeStamp)
 
-f = open("Data/HallEffectDCBias/"+fn, "a")
+f = open("Data/HallEffectDCBias/"+fn, "w+")
 f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
 
@@ -24,23 +24,24 @@ startTime = time.time()
 biasD = -1
 
 LIA = SR2124.SR2124('COM7')
-SPD3303x = spd3303x()
+SPD3303x1 = spd3303x() # sol curr
+SPD3303x2 = spd3303x(2) # gate bias
 relay = Arduino("COM3")
 
 
-SPD3303x.set_voltage(5)
-SPD3303x.set_current(0)
+SPD3303x1.set_voltage(5)
+SPD3303x1.set_current(0)
 
-SPD3303x.set_current(.05, channel = 2) # safety control
-SPD3303x.set_voltage(0, channel = 2) # safety control
+SPD3303x2.set_current(.05, channel = 2) # safety control
+SPD3303x2.set_series_voltage(0) # safety control
 
 for dc in np.linspace(0, maxV, sweepRate):
-    SPD3303x.set_voltage(dc, channel = 2)
+    SPD3303x2.set_series_voltage(dc)
     time.sleep(.5)
     LIA.overloadDetect()
 
     for direction in [1, -1]:
-        SPD3303x.set_current(0)
+        SPD3303x1.set_current(0)
         time.sleep(1)
         if direction == 1:
             relay.enable_P1()
@@ -51,7 +52,7 @@ for dc in np.linspace(0, maxV, sweepRate):
 
         i = 3.2
         
-        SPD3303x.set_current(i)
+        SPD3303x1.set_current(i)
         time.sleep(1.2)
         x, y, r, theta =LIA.readall() 
         lockstatus = LIA.readlock()
@@ -82,9 +83,9 @@ for dc in np.linspace(0, maxV, sweepRate):
     f.write(str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
     f.close()"""
     
-SPD3303x.set_voltage(0, channel = 2)
-SPD3303x.set_current(0, channel = 2)    
-SPD3303x.set_current(0)
+SPD3303x2.set_series_voltage(0)
+SPD3303x2.set_current(0, channel = 2)    
+SPD3303x1.set_current(0)
 
     
 

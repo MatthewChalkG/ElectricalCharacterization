@@ -6,7 +6,7 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode import arduinorelayinterface
 import sys
 
-timeStamp = str(time.time())
+timeStamp = str(time.time())[:10]
 fn = "pidTemp{}.txt".format(timeStamp)
 f = open("Data/tempControl/"+fn, "a")
 f.write("t,i,temp_desired,temp_tc\n")
