@@ -8,10 +8,9 @@ from MachineCode.arduinorelayinterface import Arduino
 import time
 
 startTime = time.time() 
-
-timeStamp = str(time.time())[3:10]
+timeStamp = str(time.time())
 fn = "hallVoltageSweep{}.txt".format(timeStamp)
-f = open("Data/"+fn, "a")
+f = open("Data/HallEffect2/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK,tc, therm\n")
 f.close()
 

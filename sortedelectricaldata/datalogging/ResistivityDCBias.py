@@ -20,7 +20,7 @@ startTime = time.time()
 timeStamp = str(time.time())[3:10]
 fn = "resistivity{}.txt".format(timeStamp)
 
-f = open("Data/"+fn, "a")
+f = open("Data/ResistivityDCBias/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
 f.close()
 

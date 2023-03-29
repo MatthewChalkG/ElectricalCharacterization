@@ -9,7 +9,7 @@ import numpy as np
 f2 = 92.16
 v2 = .1 # Minimum v necessary to get full range of DC bias: Why: bias values can be set up to 1000 the reference amplitude
 steps = 20
-
+maxV = 10 # max bias voltage
 #######################
 
 
@@ -26,8 +26,8 @@ SR830 = SR830('COM4')
 timeStamp = str(time.time())
 fn = "differential_resistance_{}.txt".format(timeStamp)
 
-f = open("Data/"+fn, "a")
-f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
+f = open("Data/differential_resistance/"+fn, "a")
+f.write("t,f2,b2,v2,x2,y2,r2,theta2,x8,y8,r8,theta8\n")
 f.close()
 
 
@@ -46,9 +46,9 @@ for sweepSpace in a:
         x8, y8, r8, theta8 = SR8.readall()
 
         print(f2,b2,v2,x2,y2,r2,theta2, x8, y8, r8, theta8)
+        t = time.time()
 
-
-        f.write(("{},"*10 + '{}\n').format(f2,b2,v2,x2,y2,r2,theta2, x8, y8, r8, theta8))
+        f.write(("{},"*11 + '{}\n').format(t,f2,b2,v2,x2,y2,r2,theta2, x8, y8, r8, theta8))
 
 
 f.close()

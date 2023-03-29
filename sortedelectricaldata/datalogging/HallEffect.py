@@ -7,9 +7,9 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 
 
-timeStamp = str(time.time())[3:10]
+timeStamp = str(time.time
 fn = "hallVoltageSweep{}.txt".format(timeStamp)
-f = open("Data/"+fn, "a")
+f = open("Data/HallEffect/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK\n")
 f.close()
 
