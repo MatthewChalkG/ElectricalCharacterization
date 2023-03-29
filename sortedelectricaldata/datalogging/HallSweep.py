@@ -6,10 +6,14 @@ import os
 from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 
+######################
+# Sweep parameters
+sweepRate = 20
+#######################
 
 timeStamp = str(time.time)
-fn = "hallVoltageSweep{}.txt".format(timeStamp)
-f = open("Data/HallEffect/"+fn, "a")
+fn = "hallSweep{}.txt".format(timeStamp)
+f = open("Data/HallSweep/"+fn, "a")
 f.write("t,i,x,y,r,theta,xK\n")
 f.close()
 
@@ -23,7 +27,7 @@ SPD3303x.set_current(0)
 
 startTime = time.time() 
 for direction in [(0, 3.2), (3.2, 0), (0, -3.2), (-3.2,0)]: 
-    for i in np.linspace(direction[0], direction[1], 20):
+    for i in np.linspace(direction[0], direction[1], sweepRate):
         if direction[0] > -1 and direction[1] > -1:
             relay.enable_P1()
         else:
@@ -43,5 +47,6 @@ for direction in [(0, 3.2), (3.2, 0), (0, -3.2), (-3.2,0)]:
 
 
 SPD3303x.set_current(0)
+SPD3303x.set_voltage(0)
 print(fn)
     
