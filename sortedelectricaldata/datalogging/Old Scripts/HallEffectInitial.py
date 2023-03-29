@@ -6,13 +6,7 @@ import os
 from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 
-fn = "hallVoltage.txt"
-try:
-    os.remove(fn)
-except:
-    pass
-LIA = SR2124.SR2124('COM4')
-SPD3303x = spd3303x()
+
 # Add a folder for data files
 # use .format from now on
 # add automatic offset + lowest voltage
@@ -51,18 +45,8 @@ while True:
         f.write(str(i*direction) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
         f.close()
 
-    """i = 0
-    SPD3303x.set_current(i)
-    time.sleep(3)
-    x, y, r, theta =LIA.readall() 
-    lockstatus = LIA.readlock()
-    xK = keith.voltage()
-    f = open(fn, "a")
-
-    print("i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(i, x, y, r, theta, xK))
-    f.write(str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
-    f.close()"""
     
 SPD3303x.set_current(0)
+SPD3303x.set_voltage(0)
 
     

@@ -12,9 +12,10 @@ import sys
 desiredTemp = 25
 #######################
 
-logfname = "tempcontrollog.txt"
-f = open(logfname,"a")
-f.write("time,desired temp,current,tc_temp\n")
+timeStamp = str(time.time())
+fn = "fixedTemp{}.txt".format(timeStamp)
+f = open("Data/tempControl/"+fn, "a")
+f.write("t,i,temp_desired,temp_tc\n")
 f.close()
 
 def main(desired_temp = desiredTemp, p= 0.5, i = .02 , d = 0): # i = .02
@@ -55,6 +56,7 @@ def main(desired_temp = desiredTemp, p= 0.5, i = .02 , d = 0): # i = .02
         f.close()
 
         time.sleep(.6)
+
 
 def kill_function(tc_temp):
     """ kills if temp above 70 C"""

@@ -6,11 +6,11 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode import arduinorelayinterface
 import sys
 
-logfname = "tempcontrollog.txt"
-f = open(logfname,"a")
-f.write("time,desired temp,current,tc_temp\n")
+timeStamp = str(time.time())
+fn = "pidTemp{}.txt".format(timeStamp)
+f = open("Data/tempControl/"+fn, "a")
+f.write("t,i,temp_desired,temp_tc\n")
 f.close()
-
 
 # def singleCycle(desired_min = -15, desired_max= 60, p= 5, i = .05, d = .1, current_min = 0, current_max = 5):
    # """cool down to min, go up to max, go down to min"""

@@ -52,18 +52,7 @@ while True:
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm) + "\n")
         f.close()
 
-    """i = 0
-    SPD3303x.set_current(i)
-    time.sleep(3)
-    x, y, r, theta =LIA.readall() 
-    lockstatus = LIA.readlock()
-    xK = keith.voltage()
-    f = open(fn, "a")
-
-    print("i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(i, x, y, r, theta, xK))
-    f.write(str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
-    f.close()"""
-    
 SPD3303x.set_current(0)
+SPD3303x.set_voltage(0)
 
     
