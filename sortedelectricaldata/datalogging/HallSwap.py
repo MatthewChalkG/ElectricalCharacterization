@@ -7,6 +7,11 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 import time
 
+######################
+# Sweep parameters
+
+#######################
+
 startTime = time.time()
 timeStamp = str(time.time())[:10]
 fn = "hallSwap{}.txt".format(timeStamp)

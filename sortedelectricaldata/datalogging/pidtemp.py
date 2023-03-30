@@ -59,12 +59,12 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
     """
     print("running approach_desired_exit to T=",target_temp)
     
-    supply = spd3303x(1)
+    supply = spd3303x()
     keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
 
     tc_temp = keithley.thermoCoupleTemp()
-    supply.set_voltage(12)
+    supply.set_voltage(12, channel = 2)
 
     pid = PID(p, i, d, setpoint = tc_temp) 
     if prev_pid != None: pid = prev_pid
@@ -132,7 +132,7 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
         pid.setpoint = heat * desired_temp # by inverting both quantities when cooling, we also invert the delta
         current = pid(heat * tc_temp)
         if waitatambient and wait_timer: current = 0
-        supply.set_current(current)
+        supply.set_current(current, channel = 2)
         print("desired_temp = " + str(desired_temp), "current = " + str(current), "tc_temp = " +  str(tc_temp))
 
         f = open(logfname,"a")
@@ -151,7 +151,7 @@ def approach_desired(prev_val = None, max_temp = 10, p= 0.5, i = 0.02, d = 0, cu
 
     
     tc_temp = keithley.thermoCoupleTemp()
-    supply.set_voltage(12)
+    supply.set_voltage(12, channel = 2)
 
     pid = PID(p, i, d, setpoint = tc_temp) 
     pid.output_limits = (current_min, current_max) 
@@ -180,7 +180,7 @@ def approach_desired(prev_val = None, max_temp = 10, p= 0.5, i = 0.02, d = 0, cu
 
         pid.setpoint = desired_temp
         current = pid(tc_temp)
-        supply.set_current(current)
+        supply.set_current(current, channel = 2)
         print("desired_temp = " + str(desired_temp), "current = " + str(current), "tc_temp = " +  str(tc_temp))
 
 def kill_function(tc_temp):
@@ -188,8 +188,8 @@ def kill_function(tc_temp):
 
     if tc_temp > 70:
         supply = spd3303x()
-        supply.set_voltage = 0
-        supply.set_current = 0
+        supply.set_voltage(0, channel = 2) 
+        supply.set_current(0, channel = 2)
         print("temp above 70C")
         print("EXITING - TEMP > 70 C")
         sys.exit()

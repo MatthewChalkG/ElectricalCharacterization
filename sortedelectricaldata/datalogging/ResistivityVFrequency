@@ -27,9 +27,9 @@ LIA = SR2124.SR2124('COM7')
 for f in freqSweep:
     LIA.setf(f)
     time.sleep(1.5)
-    LIA.overloadDetect()
+    # LIA.overloadDetect()
     x, y, r, theta = LIA.readall() 
-    lockstatus = LIA.readlock()
+    # lockstatus = LIA.readlock()
     xK = 0
     # tc = keith.thermoCoupleTemp()
     tc = 0
