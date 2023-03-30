@@ -8,7 +8,7 @@ from MachineCode.arduinorelayinterface import Arduino
 
 ######################
 # Sweep parameters
-sweepRate = 20
+sweepRate = 100
 #######################
 
 timeStamp = str(time.time())[:10]
