@@ -9,7 +9,7 @@ import time
 
 ######################
 # Sweep parameters
-freqSweep = np.linspace(20, 2000, 53)
+freqSweep = np.linspace(20, 2100, 2081)
 #######################
 
 startTime = time.time()
@@ -24,9 +24,10 @@ f.close()
 LIA = SR2124.SR2124('COM7')
 
 
-for f in freqSweep:
-    LIA.setf(f)
-    time.sleep(1.5)
+for freq in freqSweep:
+    print(freq)
+    LIA.setf(freq)
+    time.sleep(.5)
     # LIA.overloadDetect()
     x, y, r, theta = LIA.readall() 
     # lockstatus = LIA.readlock()
@@ -38,8 +39,8 @@ for f in freqSweep:
     #temp = 0
     f = open("Data/ResistivityVFrequency/"+fn, "a")
     t = time.time() # - startTime
-    print("t: {}, f: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}".format(t-startTime, f, x, y, r, theta, xK, tc, therm))
-    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, f, x, y, r, theta, xK, tc, therm) + "\n")
+    print("t: {}, f: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}".format(t-startTime, freq, x, y, r, theta, xK, tc, therm))
+    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, freq, x, y, r, theta, xK, tc, therm) + "\n")
     f.close()
 
 
