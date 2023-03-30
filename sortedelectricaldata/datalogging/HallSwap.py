@@ -41,7 +41,7 @@ while True:
         i = 3.2
         
         SPD3303x.set_current(i)
-        time.sleep(2)
+        time.sleep(4)
         x, y, r, theta =LIA.readall() 
         lockstatus = LIA.readlock()
         # xK = keith.voltage() * LIA.readsens()/10
