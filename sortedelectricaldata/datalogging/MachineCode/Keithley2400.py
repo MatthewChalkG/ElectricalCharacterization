@@ -26,7 +26,7 @@ class Keithley2400():
         self.ser.close()
 
     def sendValue(self,string):
-        self.ser.write(string+"\r")
+        self.ser.write((string+"\r").encode('utf-8'))
         time.sleep(0.2)
 
     def readValue(self, string):
@@ -38,6 +38,9 @@ class Keithley2400():
     def setComplianceCurrent(self, curr = 10):
         self.sendValue(":SENS:CURR:PROT " + str(curr) + "E-3")
 
+    def read_current(self):
+        curr = self.readValue('SOUR:CURR:LEV:TRIG:AMPL?')
+        return curr
 
     def reset(self):
         self.sendValue("*RST")
