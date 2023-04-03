@@ -10,9 +10,9 @@ import time
 
 ######################
 # Sweep parameters
-biasD = -1
-maxV = 100
-numPoints = 21
+minV = 0
+maxV = 5
+numPoints = 51
 up = True
 down = True
 #######################
@@ -22,7 +22,7 @@ timeStamp = str(time.time())[:10]
 fn = "resistivity{}.txt".format(timeStamp)
 
 f = open("Data/ResistivityDCBiasSMU/"+fn, "w+")
-f.write("t,i,x,y,r,theta,xK,tc,therm,dc\n")
+f.write("t,i,x,y,r,theta,xK,tc,therm,dc, trueGateDC, trueGateI\n")
 f.close()
 
 
@@ -30,20 +30,24 @@ LIA = SR2124.SR2124('COM7')
 relay = Arduino("COM3")
 keith = Keithley2400("COM10")
 
-keith.setupVoltageMeasurement()
-keith.setComplianceCurrent(1) # safety control
+keith.slowIVMode()
+keith.setComplianceCurrent(.3) # safety control
 keith.setVoltage(0) # safety control
-keith.setSourceFunc("VOLT")
 
 
-sweepSpace = np.linspace(0, maxV, numPoints)
+sweepSpace = np.linspace(minV, maxV, numPoints)
 
 
 for dc in sweepSpace:
     keith.switchVoltage(dc)
     time.sleep(1.5)
     LIA.overloadDetect()
-    print(keith.read())
+
+    data = keith.read()
+    formattedData = data.decode().strip().split(',')
+    trueGateDC = formattedData[0]
+    trueGateI = formattedData[1]
+    print(trueGateDC, trueGateI)
 
     x, y, r, theta =LIA.readall() 
     lockstatus = LIA.readlock()
@@ -57,8 +61,8 @@ for dc in sweepSpace:
     #temp = 0
     f = open("Data/ResistivityDCBiasSMU/"+fn, "a")
     t = time.time() # - startTime
-    print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc*biasD))
-    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc*biasD) + "\n")
+    #print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, trueGateDC: {}, trueGateI: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI))
+    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI) + "\n")
     f.close()
 
 

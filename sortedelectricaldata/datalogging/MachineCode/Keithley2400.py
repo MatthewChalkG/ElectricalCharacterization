@@ -72,10 +72,24 @@ class Keithley2400():
 
     def read(self):
         self.outputOn()
-        val = float(self.readValue(":READ?").strip())
+        val = self.readValue(":READ?").strip()
         self.outputOff()
         return val
         
+
+    def slowIVMode(self):
+        self.reset()
+        self.beeperOff()
+        self.sendValue(":SOUR:FUNC VOLT")
+        self.sendValue(":SOUR:VOLT 10")
+        self.sendValue(":SENS:FUNC 'CURR'")
+        self.sendValue(":SENS:CURR:RANG 10E-3")
+        self.sendValue(":SENS:FUNC 'VOLT'")
+        self.sendValue(":OUTP ON")
+        print(self.readValue(":READ?"))
+        self.sendValue(":OUTP OFF")
+
+
     def setupVoltageMeasurement(self):
         """Function to prepare Keithley vor Voltage measurement.
         cf. page 3-21 in accompanying manual.
