@@ -75,7 +75,10 @@ class Keithley2400():
         val = self.readValue(":READ?").strip()
         self.outputOff()
         return val
-        
+    
+    def read2(self):
+        val = self.readValue(":READ?").strip()
+        return val
 
     def slowIVMode(self):
         self.reset()

@@ -10,9 +10,9 @@ import time
 
 ######################
 # Sweep parameters
-minV = 0
+minV = 40
 maxV = 100
-numPoints = 301
+numPoints = 101
 up = True
 down = True
 #######################
@@ -22,7 +22,7 @@ timeStamp = str(time.time())[:10]
 fn = "resistivity{}.txt".format(timeStamp)
 
 f = open("Data/ResistivityDCBiasSMU/"+fn, "w+")
-f.write("t,i,x,y,r,theta,xK,tc,therm,dc, trueGateDC, trueGateI\n")
+f.write("t,i,x,y,r,theta,xK,tc,therm,dc,trueGateDC,trueGateI\n")
 f.close()
 
 
@@ -36,14 +36,15 @@ keith.setVoltage(0) # safety control
 
 
 sweepSpace = np.linspace(minV, maxV, numPoints)
-
+keith.outputOn()
 
 for dc in sweepSpace:
-    keith.setVoltage(dc)
+    keith.setVoltage(dc) # tass?
+    
     time.sleep(1.5)
     LIA.overloadDetect()
 
-    data = keith.read()
+    data = keith.read2()
     formattedData = data.decode().strip().split(',')
     trueGateDC = formattedData[0]
     trueGateI = formattedData[1]
@@ -64,6 +65,7 @@ for dc in sweepSpace:
     #print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, trueGateDC: {}, trueGateI: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI))
     f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI) + "\n")
     f.close()
+    
 
 
 
