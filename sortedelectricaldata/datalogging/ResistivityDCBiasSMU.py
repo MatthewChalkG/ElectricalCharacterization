@@ -10,9 +10,9 @@ import time
 
 ######################
 # Sweep parameters
-minV = 40
-maxV = 100
-numPoints = 101
+minV = -200
+maxV = 200
+numPoints = 201
 up = True
 down = True
 #######################
@@ -31,41 +31,43 @@ relay = Arduino("COM3")
 keith = Keithley2400("COM10")
 
 keith.slowIVMode()
-keith.setComplianceCurrent(100) # safety control
+keith.setComplianceCurrent(5)# safety control
 keith.setVoltage(0) # safety control
 
 
-sweepSpace = np.linspace(minV, maxV, numPoints)
+sweepSpaceL = [[0, maxV, numPoints], [maxV, 0, numPoints], [0, minV, numPoints], [minV, 0, numPoints]]
 keith.outputOn()
 
-for dc in sweepSpace:
-    keith.setVoltage(dc) # tass?
-    
-    time.sleep(1.5)
-    LIA.overloadDetect()
+for sweepSpaceParams in sweepSpaceL:
+    sweepSpace = np.linspace(sweepSpaceParams[0], sweepSpaceParams[1], sweepSpaceParams[2])
+    for dc in sweepSpace:
+        keith.setVoltage(dc) # tass?
+        
+        time.sleep(1.5)
+        LIA.overloadDetect()
 
-    data = keith.read2()
-    formattedData = data.decode().strip().split(',')
-    trueGateDC = formattedData[0]
-    trueGateI = formattedData[1]
-    print(trueGateDC, trueGateI)
+        data = keith.read2()
+        formattedData = data.decode().strip().split(',')
+        trueGateDC = formattedData[0]
+        trueGateI = formattedData[1]
+        print(trueGateDC, trueGateI)
 
-    x, y, r, theta =LIA.readall() 
-    lockstatus = LIA.readlock()
-    # xK = keith.voltage() * LIA.readsens()/10
-    xK = 0
-    # tc = keith.thermoCoupleTemp()
-    i = 0
-    tc = 0
-    #therm = keith.resistance()
-    therm = 0
-    #temp = 0
-    f = open("Data/ResistivityDCBiasSMU/"+fn, "a")
-    t = time.time() # - startTime
-    #print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, trueGateDC: {}, trueGateI: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI))
-    f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI) + "\n")
-    f.close()
-    
+        x, y, r, theta =LIA.readall() 
+        lockstatus = LIA.readlock()
+        # xK = keith.voltage() * LIA.readsens()/10
+        xK = 0
+        # tc = keith.thermoCoupleTemp()
+        i = 0
+        tc = 0
+        #therm = keith.resistance()
+        therm = 0
+        #temp = 0
+        f = open("Data/ResistivityDCBiasSMU/"+fn, "a")
+        t = time.time() # - startTime
+        #print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, trueGateDC: {}, trueGateI: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI))
+        f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI) + "\n")
+        f.close()
+        
 
 
 
