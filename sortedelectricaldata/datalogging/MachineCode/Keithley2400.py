@@ -86,7 +86,7 @@ class Keithley2400():
         self.sendValue(":SOUR:FUNC VOLT")
         self.sendValue(":SOUR:VOLT 10")
         self.sendValue(":SENS:FUNC 'CURR'")
-        self.sendValue(":SENS:CURR:RANG 10E-3")
+        #self.sendValue(":SENS:CURR:RANG 10E-3")
         self.sendValue(":SENS:FUNC 'VOLT'")
         self.sendValue(":OUTP ON")
         print(self.readValue(":READ?"))
