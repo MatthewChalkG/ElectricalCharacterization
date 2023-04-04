@@ -11,8 +11,8 @@ import time
 ######################
 # Sweep parameters
 minV = 0
-maxV = 50
-numPoints = 51
+maxV = 100
+numPoints = 301
 up = True
 down = True
 #######################
@@ -39,7 +39,7 @@ sweepSpace = np.linspace(minV, maxV, numPoints)
 
 
 for dc in sweepSpace:
-    keith.switchVoltage(dc)
+    keith.setVoltage(dc)
     time.sleep(1.5)
     LIA.overloadDetect()
 
