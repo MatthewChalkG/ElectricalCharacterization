@@ -9,7 +9,7 @@ import sys
 
 ######################
 # Sweep parameters
-desiredTemp = 22
+desiredTemp = 25
 #######################
 
 timeStamp = str(time.time())[:10]
