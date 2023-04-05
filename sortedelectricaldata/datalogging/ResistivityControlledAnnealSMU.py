@@ -15,6 +15,9 @@ maxV = 50
 numPoints = 101
 up = True
 down = True
+annealTime = 60
+annealVoltage = 150
+totalRunTime = 60*60*12
 #######################
 
 startTime = time.time()
@@ -75,14 +78,15 @@ def voltage_stepDown(inst, channel):
     current_voltage = inst.read_voltage(channel)
     #while 
 
-while True:
-    anneal(annealVoltage = 200, annealTime = 600)
+startTime = time.time()
+runTime = time.time() - startTime
+while runTime < totalRunTime:
+    
+    anneal(annealVoltage = annealVoltage, annealTime = annealTime)
     for sweepSpaceParams in sweepSpaceL:
         sweepSpace = np.linspace(sweepSpaceParams[0], sweepSpaceParams[1], sweepSpaceParams[2])
         for dc in sweepSpace:
             keith.setVoltage(dc) # tass?
-            
-            time.sleep(1.5)
             LIA.overloadDetect()
 
             data = keith.read2()
@@ -106,6 +110,7 @@ while True:
             #print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, trueGateDC: {}, trueGateI: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI))
             f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI) + "\n")
             f.close()
+    runTime = time.time()-startTime
             
 
 
@@ -122,43 +127,3 @@ time.sleep(3)
 LIA.autoOffsetY()
 
 keith.outputOff()
-
-#from playsound import playsound
-#while True:
-   # playsound('sound1.mp3')
-
-def anneal(annealVoltage, time):
-    start_time = time.time()
-    current_time = time.time()
-    while current_time - start_time < time:
-        current_time = time.time()
-        keith.setVoltage(annealVoltage)
-    
-        LIA.overloadDetect()
-
-        data = keith.read2()
-        formattedData = data.decode().strip().split(',')
-        trueGateDC = formattedData[0]
-        trueGateI = formattedData[1]
-        print(trueGateDC, trueGateI)
-
-        x, y, r, theta =LIA.readall() 
-        lockstatus = LIA.readlock()
-        # xK = keith.voltage() * LIA.readsens()/10
-        xK = 0
-        # tc = keith.thermoCoupleTemp()
-        i = 0
-        tc = 0
-        #therm = keith.resistance()
-        therm = 0
-        #temp = 0
-        f = open("Data/ResistivityDCBiasSMU/"+fn, "a")
-        t = time.time() # - startTime
-        #print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, trueGateDC: {}, trueGateI: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI))
-        f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI) + "\n")
-        f.close()
-        time.sleep(1)
-
-def voltage_stepDown(inst, channel):
-    current_voltage = inst.read_voltage(channel)
-    #while 
