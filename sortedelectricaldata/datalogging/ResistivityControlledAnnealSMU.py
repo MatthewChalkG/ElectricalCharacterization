@@ -6,32 +6,35 @@ import os
 from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 from MachineCode.Keithley2400 import Keithley2400
-import time
+from MachineCode import SR830
 
 ######################
 # Sweep parameters
-minV = -50
-maxV = 50
+minV = -30
+maxV = 30
 numPoints = 101
-up = True
-down = True
 annealTime = 60
-annealVoltage = 150
+annealVoltage = 30
 totalRunTime = 60*60*12
+sampleID = None
 #######################
+
+
+
 
 startTime = time.time()
 timeStamp = str(time.time())[:10]
 fn = "resistivity{}.txt".format(timeStamp)
 
 f = open("Data/ResistivityDCBiasSMU/"+fn, "w+")
-f.write("t,i,x,y,r,theta,xK,tc,therm,dc,trueGateDC,trueGateI\n")
+f.write("t,i,x,y,r,theta,xK,tc,therm,dc,trueGateDC,trueGateI,x2,y2,r2,theta2\n")
 f.close()
 
 
 LIA = SR2124.SR2124('COM7')
 relay = Arduino("COM3")
 keith = Keithley2400("COM10")
+LIA2 = SR830.SR830("COM9")
 
 keith.slowIVMode()
 keith.setComplianceCurrent(.1)# safety control
@@ -58,6 +61,7 @@ def anneal(annealVoltage, annealTime):
         print(trueGateDC, trueGateI)
 
         x, y, r, theta =LIA.readall() 
+        x2, y2, r2, theta2 =LIA2.readall() 
         lockstatus = LIA.readlock()
         # xK = keith.voltage() * LIA.readsens()/10
         xK = 0
@@ -70,7 +74,7 @@ def anneal(annealVoltage, annealTime):
         f = open("Data/ResistivityDCBiasSMU/"+fn, "a")
         t = time.time() # - startTime
         #print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, trueGateDC: {}, trueGateI: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI))
-        f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI) + "\n")
+        f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI, x2, y2, r2, theta2) + "\n")
         f.close()
         time.sleep(1)
 
@@ -80,8 +84,8 @@ def voltage_stepDown(inst, channel):
 
 startTime = time.time()
 runTime = time.time() - startTime
-while runTime < totalRunTime:
-    
+
+while True:
     anneal(annealVoltage = annealVoltage, annealTime = annealTime)
     for sweepSpaceParams in sweepSpaceL:
         sweepSpace = np.linspace(sweepSpaceParams[0], sweepSpaceParams[1], sweepSpaceParams[2])
@@ -96,6 +100,7 @@ while runTime < totalRunTime:
             print(trueGateDC, trueGateI)
 
             x, y, r, theta =LIA.readall() 
+            x2, y2, r2, theta2 =LIA.readall() 
             lockstatus = LIA.readlock()
             # xK = keith.voltage() * LIA.readsens()/10
             xK = 0
@@ -108,9 +113,10 @@ while runTime < totalRunTime:
             f = open("Data/ResistivityDCBiasSMU/"+fn, "a")
             t = time.time() # - startTime
             #print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, trueGateDC: {}, trueGateI: {}".format(t-startTime, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI))
-            f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI) + "\n")
+            f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI, x2, y2, r2, theta2) + "\n")
             f.close()
     runTime = time.time()-startTime
+    annealVoltage += 5
             
 
 
