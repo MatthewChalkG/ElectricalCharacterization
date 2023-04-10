@@ -10,8 +10,8 @@ import time
 
 ######################
 # Sweep parameters
-minV = -50
-maxV = 50
+minV = -2.5
+maxV = 2.5
 numPoints = 101
 up = True
 down = True
@@ -31,7 +31,7 @@ relay = Arduino("COM3")
 keith = Keithley2400("COM10")
 
 keith.slowIVMode()
-keith.setComplianceCurrent(.1)# safety control
+keith.setComplianceCurrent(.01)# safety control
 keith.setVoltage(0) # safety control
 
 
