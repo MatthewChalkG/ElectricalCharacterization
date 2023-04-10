@@ -12,7 +12,7 @@ import time
 # Sweep parameters
 minV = -2.5
 maxV = 2.5
-numPoints = 101
+numPoints = 51
 up = True
 down = True
 #######################
