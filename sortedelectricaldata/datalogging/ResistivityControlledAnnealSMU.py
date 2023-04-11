@@ -10,11 +10,12 @@ from MachineCode import SR830
 
 ######################
 # Sweep parameters
-minV = -30
-maxV = 30
-numPoints = 101
-annealTime = 60
+minV = -25
+maxV = 25
+numPoints = 51
+annealTime = 120
 annealVoltage = 30
+annealIncrement = 2.5
 totalRunTime = 60*60*12
 sampleID = None
 #######################
@@ -37,7 +38,7 @@ keith = Keithley2400("COM10")
 LIA2 = SR830.SR830("COM9")
 
 keith.slowIVMode()
-keith.setComplianceCurrent(.1)# safety control
+keith.setComplianceCurrent(.001)# safety control
 keith.setVoltage(0) # safety control
 
 
