@@ -86,7 +86,7 @@ def voltage_stepDown(inst, channel):
 startTime = time.time()
 runTime = time.time() - startTime
 
-while True:
+while annealVoltage < 101:
     anneal(annealVoltage = annealVoltage, annealTime = annealTime)
     for sweepSpaceParams in sweepSpaceL:
         sweepSpace = np.linspace(sweepSpaceParams[0], sweepSpaceParams[1], sweepSpaceParams[2])
@@ -117,7 +117,7 @@ while True:
             f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i, x, y, r, theta, xK, tc, therm, dc, trueGateDC, trueGateI, x2, y2, r2, theta2) + "\n")
             f.close()
     runTime = time.time()-startTime
-    annealVoltage += 5
+    annealVoltage += annealIncrement
             
 
 
