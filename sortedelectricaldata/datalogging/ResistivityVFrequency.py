@@ -9,7 +9,7 @@ import time
 
 ######################
 # Sweep parameters
-freqSweep = np.linspace(20, 2100, 2081)
+freqSweep = np.linspace(20, 2100, 500)
 #######################
 
 startTime = time.time()
