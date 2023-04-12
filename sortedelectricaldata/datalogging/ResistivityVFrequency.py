@@ -27,7 +27,7 @@ LIA = SR2124.SR2124('COM7')
 for freq in freqSweep:
     print(freq)
     LIA.setf(freq)
-    time.sleep(.5)
+    time.sleep(1.5)
     # LIA.overloadDetect()
     x, y, r, theta = LIA.readall() 
     # lockstatus = LIA.readlock()
