@@ -10,11 +10,11 @@ from MachineCode import SR830
 
 ######################
 # Sweep parameters
-minV = -25
-maxV = 25
+minV = -40
+maxV = 40
 numPoints = 51
 annealTime = 120
-annealVoltage = 30
+annealVoltage = 80
 annealIncrement = 2.5
 totalRunTime = 60*60*12
 sampleID = None
