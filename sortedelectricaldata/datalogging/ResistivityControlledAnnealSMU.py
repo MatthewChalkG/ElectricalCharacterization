@@ -18,6 +18,7 @@ annealVoltage = 80
 annealIncrement = 2.5
 totalRunTime = 60*60*12
 sampleID = None
+maxV = 201
 #######################
 
 
@@ -86,7 +87,7 @@ def voltage_stepDown(inst, channel):
 startTime = time.time()
 runTime = time.time() - startTime
 
-while annealVoltage < 101:
+while annealVoltage < maxV:
     anneal(annealVoltage = annealVoltage, annealTime = annealTime)
     for sweepSpaceParams in sweepSpaceL:
         sweepSpace = np.linspace(sweepSpaceParams[0], sweepSpaceParams[1], sweepSpaceParams[2])
