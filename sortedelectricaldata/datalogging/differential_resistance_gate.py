@@ -30,7 +30,7 @@ timeStamp = str(time.time())[:10]
 fn = "differential_resistance_DC_{}.txt".format(timeStamp)
 
 f = open("Data/Differential_Resistance/"+fn, "a")
-f.write("t,f2,bias,v2,x2,y2,r2,theta2,x8,y8,r8,theta8\n")
+f.write("t,gateBias,f2,bias,v2,x2,y2,r2,theta2,x8,y8,r8,theta8\n")
 f.close()
 
 keith.slowIVMode()
@@ -58,10 +58,10 @@ for gateBias in gateBiasL:
            # x8, y8, r8, theta8 = SR830.readall()
             x8, y8, r8, theta8 = [0,0,0,0]
 
-            print(f2,bias,v2,x2,y2,r2,theta2, x8, y8, r8, theta8)
+            print(f2,gateBias,bias,v2,x2,y2,r2,theta2, x8, y8, r8, theta8)
             t = time.time()
             f = open("Data/Differential_Resistance/"+fn, "a")
-            f.write(("{},"*11 + '{}\n').format(t,f2,bias,v2,x2,y2,r2,theta2, x8, y8, r8, theta8))
+            f.write(("{},"*12 + '{}\n').format(t,gateBias,f2,bias,v2,x2,y2,r2,theta2, x8, y8, r8, theta8))
             f.close()
 
 keith.outputOff()
