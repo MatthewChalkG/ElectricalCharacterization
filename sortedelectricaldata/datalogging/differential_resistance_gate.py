@@ -27,7 +27,7 @@ SR2124.setb(0)
 SR2124.onb(1)
 
 timeStamp = str(time.time())[:10]
-fn = "differential_resistance_{}.txt".format(timeStamp)
+fn = "differential_resistance_DC_{}.txt".format(timeStamp)
 
 f = open("Data/Differential_Resistance/"+fn, "a")
 f.write("t,f2,bias,v2,x2,y2,r2,theta2,x8,y8,r8,theta8\n")
