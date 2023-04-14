@@ -10,9 +10,9 @@ import time
 
 ######################
 # Sweep parameters
-minV = -10
-maxV = 10
-numPoints = 11
+minV = -210
+maxV = 210
+numPoints = 211
 up = True
 down = True
 #######################
@@ -43,7 +43,7 @@ while True:
         for dc in sweepSpace:
             keith.setVoltage(dc) # tass?
             
-            time.sleep(1.5)
+            #time.sleep(1.5)
             LIA.overloadDetect()
 
             data = keith.read2()

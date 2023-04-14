@@ -10,8 +10,8 @@ from MachineCode.Keithley2400 import Keithley2400
 f2 = 442.3
 v2 = .01 # Minimum v necessary to get full range of DC bias: Why: bias values can be set up to 1000 the reference amplitude
 steps = 40
-maxV = 1 # max bias voltage
-gateBiasL = np.linspace(-3, 3, 10)
+maxV = 10 # max bias voltage
+gateBiasMaxV = 210
 #######################
 
 
@@ -41,6 +41,10 @@ keith.outputOn()
 
 
 a = [np.linspace(0, maxV, steps), np.linspace(maxV, 0, steps)] # , np.linspace(0, -maxV, steps), np.linspace(-maxV, 0, steps)
+
+
+
+
 
 for gateBias in gateBiasL:
     keith.setVoltage(gateBias)
