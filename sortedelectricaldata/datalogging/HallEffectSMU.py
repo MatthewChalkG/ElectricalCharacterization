@@ -1,4 +1,5 @@
 from MachineCode import SR2124
+from MachineCode import SR830
 from MachineCode.SPD3303X import spd3303x
 import numpy as np
 import time
@@ -11,15 +12,15 @@ import time
 ######################
 # Sweep parameters
 numPoints = 6
-maxV = 200
-minV = -200
+maxV = 100
+minV = -100
 #######################
 
 timeStamp = str(time.time())[:10]
 fn = "hallDCBiasSMU{}.txt".format(timeStamp)
 
 f = open("Data/HallEffectDCBias/"+fn, "w+")
-f.write("t,i,x,y,r,theta,xK,tc,therm,dc,i\n")
+f.write("t,i,x,y,r,theta,xK,tc,therm,dc,i,x2,y2,r2,theta2\n")
 f.close()
 
 startTime = time.time() 
@@ -28,6 +29,8 @@ biasD = -1
 LIA = SR2124.SR2124('COM7')
 keith = Keithley2400("COM10")
 relay = Arduino("COM3")
+LIA2 = SR830.SR830("COM9")
+
 SPD3303x1 = spd3303x() # sol curr
 
 keith.slowIVMode()
@@ -50,8 +53,11 @@ for sweepSpaceParams in sweepSpaceL:
         formattedData = data.decode().strip().split(',')
         trueGateDC = formattedData[0]
         trueGateI = formattedData[1]
+
+        LIA.overloadDetect()
         
-        for direction in [1, -1, 1, -1, 1, -1]:
+
+        for direction in [1, -1]*30:
             SPD3303x1.set_current(0)
             time.sleep(1)
             if direction == 1:
@@ -68,7 +74,9 @@ for sweepSpaceParams in sweepSpaceL:
 
             time.sleep(1.2)
             x, y, r, theta =LIA.readall() 
-            lockstatus = LIA.readlock()
+            x2, y2, r2, theta2 =LIA2.readall() 
+
+            
             # xK = keith.voltage() * LIA.readsens()/10
             xK = 0
             # tc = keith.thermoCoupleTemp()
@@ -79,7 +87,7 @@ for sweepSpaceParams in sweepSpaceL:
             f = open("Data/HallEffectDCBias/"+fn, "a")
             t = time.time() # - startTime
             print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, i: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, dc, i))
-            f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc, i) + "\n")
+            f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc, i, x2, y2, r2, theta2) + "\n")
             f.close()
 
 

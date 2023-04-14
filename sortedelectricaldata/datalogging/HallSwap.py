@@ -61,10 +61,10 @@ while True:
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm) + "\n")
         f.close()
         if direction == 1:
-            plt.scatter(t, r, color = 'green')
+            plt.scatter(t, x, color = 'green')
            # plt.scatter(t, x, color = 'blue')
         else:
-            plt.scatter(t, r, color = 'brown')
+            plt.scatter(t, x, color = 'brown')
            # plt.scatter(t, x, color = 'yellow')
         plt.pause(0.05)
 
