@@ -37,6 +37,7 @@ keith.setVoltage(0) # safety control
 
 sweepSpaceL = [[0, maxV, numPoints], [maxV, 0, numPoints], [0, minV, numPoints], [minV, 0, numPoints]]
 keith.outputOn()
+
 while True:
     for sweepSpaceParams in sweepSpaceL:
         sweepSpace = np.linspace(sweepSpaceParams[0], sweepSpaceParams[1], sweepSpaceParams[2])
