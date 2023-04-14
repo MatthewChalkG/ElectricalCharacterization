@@ -5,10 +5,10 @@ import time
 import os
 from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
-
+import matplotlib.pyplot as plt
 ######################
 # Sweep parameters
-sweepRate = 33
+sweepRate = 5
 #######################
 
 timeStamp = str(time.time())[:10]
@@ -34,17 +34,18 @@ for direction in [(0, 3.2), (3.2, 0), (0, -3.2), (-3.2,0)]:
             relay.enable_P2()
         
         SPD3303x.set_current(abs(i))
-        time.sleep(.7)
+        time.sleep(.5)
         x, y, r, theta = LIA.readall() 
-
-        lockstatus = LIA.readlock()
         xK = 0
         f = open("Data/HallSweep/"+fn, "a")
         t = time.time()
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}".format(t-startTime, i, x, y, r, theta, xK))
         f.write(str(t) + ',' + str(i) + ',' + str(x)+',' + str(y) + ',' + str(r) + ',' + str(theta) + ',' + str(xK) + "\n")
         f.close()
-
+        plt.scatter(i, r, color = 'blue')
+        #plt.scatter(i, x*-1, color = 'green')
+        plt.pause(.05)
+plt.show()
 
 SPD3303x.set_current(0)
 SPD3303x.set_voltage(0)

@@ -6,6 +6,8 @@ import os
 from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 import time
+import matplotlib.pyplot as plt
+
 
 ######################
 # Sweep parameters
@@ -27,6 +29,8 @@ SPD3303x.set_current(0)
 #keith = keithley2110tc(1)
 relay = Arduino("COM3")
 
+# plt.axis([0, 10, 0, 1])
+
 while True:
     for direction in [1, -1]:
         SPD3303x.set_current(0)
@@ -41,7 +45,7 @@ while True:
         i = 3.2
         
         SPD3303x.set_current(i)
-        time.sleep(4)
+        time.sleep(1.5)
         x, y, r, theta =LIA.readall() 
         lockstatus = LIA.readlock()
         # xK = keith.voltage() * LIA.readsens()/10
@@ -56,7 +60,15 @@ while True:
         print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm))
         f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm) + "\n")
         f.close()
+        if direction == 1:
+            plt.scatter(t, r, color = 'green')
+           # plt.scatter(t, x, color = 'blue')
+        else:
+            plt.scatter(t, r, color = 'brown')
+           # plt.scatter(t, x, color = 'yellow')
+        plt.pause(0.05)
 
+plt.show()
 SPD3303x.set_current(0)
 SPD3303x.set_voltage(0)
 
