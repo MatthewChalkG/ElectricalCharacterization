@@ -20,7 +20,7 @@ timeStamp = str(time.time())[:10]
 fn = "hallDCBiasSMU{}.txt".format(timeStamp)
 
 f = open("Data/HallEffectDCBias/"+fn, "w+")
-f.write("t,i,x,y,r,theta,xK,tc,therm,dc,i,x2,y2,r2,theta2\n")
+f.write("t,i,x,y,r,theta,xK,tc,therm,trueGateDC,trueGateI,x2,y2,r2,theta2\n")
 f.close()
 
 startTime = time.time() 
