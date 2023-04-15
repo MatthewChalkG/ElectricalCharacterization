@@ -9,7 +9,7 @@ import sys
 
 ######################
 # Sweep parameters
-desiredTemp = 15 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
+desiredTemp = 18 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
 #######################
 
 timeStamp = str(time.time())[:10]

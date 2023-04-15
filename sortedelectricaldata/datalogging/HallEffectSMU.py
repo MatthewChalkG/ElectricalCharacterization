@@ -47,8 +47,11 @@ for sweepSpaceParams in sweepSpaceL:
     sweepSpace = np.linspace(sweepSpaceParams[0], sweepSpaceParams[1], sweepSpaceParams[2])
     for dc in sweepSpace:
         keith.setVoltage(dc)
-        time.sleep(2.5)
+        time.sleep(3)
         LIA.overloadDetect()
+        time.sleep(10)
+        LIA.overloadDetect()
+        
         data = keith.read2()
         formattedData = data.decode().strip().split(',')
         trueGateDC = formattedData[0]
