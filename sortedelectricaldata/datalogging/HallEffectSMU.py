@@ -11,9 +11,9 @@ import time
 
 ######################
 # Sweep parameters
-numPoints = 6
-maxV = 100
-minV = -100
+numPoints = 13
+maxV = 50
+minV = -50
 #######################
 
 timeStamp = str(time.time())[:10]
@@ -51,14 +51,15 @@ for sweepSpaceParams in sweepSpaceL:
         LIA.overloadDetect()
         time.sleep(10)
         LIA.overloadDetect()
-        
+
         data = keith.read2()
         formattedData = data.decode().strip().split(',')
         trueGateDC = formattedData[0]
         trueGateI = formattedData[1]
 
         LIA.overloadDetect()
-        
+        LIA.autoOffsetX()
+        LIA.autoOffsetY()
 
         for direction in [1, -1]*30:
             SPD3303x1.set_current(0)
@@ -75,7 +76,7 @@ for sweepSpaceParams in sweepSpaceL:
             SPD3303x1.set_current(i)
             
 
-            time.sleep(1.2)
+            time.sleep(2)
             x, y, r, theta =LIA.readall() 
             x2, y2, r2, theta2 =LIA2.readall() 
 
@@ -89,8 +90,8 @@ for sweepSpaceParams in sweepSpaceL:
             #temp = 0
             f = open("Data/HallEffectDCBias/"+fn, "a")
             t = time.time() # - startTime
-            print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, i: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, dc, i))
-            f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, dc, i, x2, y2, r2, theta2) + "\n")
+            print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, i: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, trueGateDC, trueGateI))
+            f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, trueGateDC, trueGateI, x2, y2, r2, theta2) + "\n")
             f.close()
 
 
