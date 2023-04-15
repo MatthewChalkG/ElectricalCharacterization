@@ -8,7 +8,7 @@ from MachineCode.arduinorelayinterface import Arduino
 import matplotlib.pyplot as plt
 ######################
 # Sweep parameters
-sweepRate = 5
+sweepRate = 33
 #######################
 
 timeStamp = str(time.time())[:10]
