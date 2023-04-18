@@ -5,15 +5,15 @@ from MachineCode.SPD3303X import spd3303x
 from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode import arduinorelayinterface
 import sys
+from MachineCode import bk5491bthermistor
 
 timeStamp = str(time.time())[:10]
 fn = "pidTemp{}.txt".format(timeStamp)
-f = open("Data/tempControl/"+fn, "a")
-f.write("t,i,temp_desired,temp_tc\n")
+f = open("Data/tempControl/"+fn, "w+")
+f.write("t,i,temp_desired,temp_tc,temp_therm,res_therm\n")
 f.close()
 
-# def singleCycle(desired_min = -15, desired_max= 60, p= 5, i = .05, d = .1, current_min = 0, current_max = 5):
-   # """cool down to min, go up to max, go down to min"""
+# def singleCycle(desired_min = -15, desired_max=mdown to min"""
     # approach_desired(desired_temp = -15)
     #approach_desired(desired_temp = 50)
     #approach_desired(desired_temp = -15)
@@ -59,11 +59,13 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
     """
     print("running approach_desired_exit to T=",target_temp)
     
-    supply = spd3303x()
+    supply = spd3303x(1)
     keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
+    thermistor = bk5491bthermistor.bkthermistor("COM11")
 
     tc_temp = keithley.thermoCoupleTemp()
+    therm_res, therm_temp = thermistor.fetchtemp()
     supply.set_voltage(12, channel = 2)
 
     pid = PID(p, i, d, setpoint = tc_temp) 
@@ -91,6 +93,7 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
         current_time = time.time()
         
         tc_temp = keithley.thermoCoupleTemp()
+        therm_res, therm_temp = thermistor.fetchtemp()
         
         kill_function(tc_temp)
 
@@ -133,10 +136,10 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
         current = pid(heat * tc_temp)
         if waitatambient and wait_timer: current = 0
         supply.set_current(current, channel = 2)
-        print("desired_temp = " + str(desired_temp), "current = " + str(current), "tc_temp = " +  str(tc_temp))
+        print("desired_temp = " + str(desired_temp), "current = " + str(current), "tc_temp = " +  str(tc_temp), "therm_temp = " + str(therm_temp), "therm_res = " + str(therm_res))
 
-        f = open(logfname,"a")
-        f.write(str(time.time())+","+str(desired_temp)+","+str(current)+","+str(tc_temp)+"\n")
+        f = open("Data/tempControl/"+fn,"a")
+        f.write(str(time.time())+","+str(desired_temp)+","+str(current)+","+str(tc_temp)+str(therm_temp)+","+str(therm_res)+"\n")
         f.close()
 
 
