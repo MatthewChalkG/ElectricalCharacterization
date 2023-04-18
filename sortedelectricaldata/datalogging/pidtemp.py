@@ -139,7 +139,7 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
         print("desired_temp = " + str(desired_temp), "current = " + str(current), "tc_temp = " +  str(tc_temp), "therm_temp = " + str(therm_temp), "therm_res = " + str(therm_res))
 
         f = open("Data/tempControl/"+fn,"a")
-        f.write(str(time.time())+","+str(desired_temp)+","+str(current)+","+str(tc_temp)+","+str(therm_temp)+","+str(therm_res)+"\n")
+        f.write(str(time.time())+","+str(current)+","+str(desired_temp) + ","+str(tc_temp)+","+str(therm_temp)+","+str(therm_res)+"\n")
         f.close()
 
 
