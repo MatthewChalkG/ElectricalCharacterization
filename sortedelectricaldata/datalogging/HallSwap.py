@@ -30,6 +30,9 @@ SPD3303x.set_current(0)
 relay = Arduino("COM3")
 
 # plt.axis([0, 10, 0, 1])
+LIA.autoOffsetX()
+time.sleep(3)
+LIA.autoOffsetY()
 
 while True:
     for direction in [1, -1]:
