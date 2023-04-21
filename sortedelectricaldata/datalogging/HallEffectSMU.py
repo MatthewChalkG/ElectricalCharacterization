@@ -11,9 +11,9 @@ import time
 
 ######################
 # Sweep parameters
-numPoints = 30
+numPoints = 61
 maxV = 120
-minV = 120
+minV = 50
 #######################
 
 timeStamp = str(time.time())[:10]
