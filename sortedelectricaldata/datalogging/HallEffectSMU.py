@@ -13,7 +13,7 @@ import time
 # Sweep parameters
 numPoints = 61
 maxV = 120
-minV = 50
+minV = -60
 #######################
 
 timeStamp = str(time.time())[:10]
@@ -34,7 +34,7 @@ LIA2 = SR830.SR830("COM9")
 SPD3303x1 = spd3303x() # sol curr
 
 keith.slowIVMode()
-keith.setComplianceCurrent(.001)# safety control
+keith.setComplianceCurrent(.01)# safety control
 keith.setVoltage(0) # safety control
 SPD3303x1.set_voltage(5)
 SPD3303x1.set_current(0)
