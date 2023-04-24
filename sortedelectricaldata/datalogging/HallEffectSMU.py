@@ -12,8 +12,8 @@ import time
 ######################
 # Sweep parameters
 numPoints = 61
-maxV = 120
-minV = -60
+maxV = 160
+minV = 0
 #######################
 
 timeStamp = str(time.time())[:10]
@@ -40,7 +40,8 @@ SPD3303x1.set_voltage(5)
 SPD3303x1.set_current(0)
 
 keith.outputOn()
-sweepSpaceL = [[0, maxV, numPoints], [maxV, 0, numPoints], [0, minV, numPoints], [minV, 0, numPoints]]
+#sweepSpaceL = [[0, maxV, numPoints], [maxV, 0, numPoints], [0, minV, numPoints], [minV, 0, numPoints]]
+sweepSpaceL = [[0, maxV, numPoints], [maxV, 0, numPoints]]
 
 
 for sweepSpaceParams in sweepSpaceL:
@@ -61,7 +62,7 @@ for sweepSpaceParams in sweepSpaceL:
         LIA.autoOffsetX()
         LIA.autoOffsetY()
 
-        for direction in [1, -1]*30:
+        for direction in [1, -1]*5:
             SPD3303x1.set_current(0)
             time.sleep(1)
             if direction == 1:
