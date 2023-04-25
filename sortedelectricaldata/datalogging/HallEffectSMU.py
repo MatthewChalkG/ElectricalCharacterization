@@ -62,7 +62,7 @@ for sweepSpaceParams in sweepSpaceL:
         LIA.autoOffsetX()
         LIA.autoOffsetY()
 
-        for direction in [1, -1]*5:
+        for direction in [1, -1]*10:
             SPD3303x1.set_current(0)
             time.sleep(1)
             if direction == 1:
