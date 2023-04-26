@@ -5,27 +5,27 @@ from MachineCode.SPD3303X import spd3303x
 from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode import arduinorelayinterface
 import sys
-
+from MachineCode import bk5491bthermistor
 
 ######################
 # Sweep parameters
-desiredTemp = 18 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
+desiredTemp = 60 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
 #######################
 
 timeStamp = str(time.time())[:10]
 fn = "fixedTemp{}.txt".format(timeStamp)
 f = open("Data/tempControl/"+fn, "w+")
-f.write("t,i,temp_desired,temp_tc\n")
+f.write("t,i,temp_desired,temp_tc,therm_res,therm_temp\n")
 f.close()
-
-def main(desired_temp = desiredTemp, p= 0.5, i = .02 , d = 0): # i = .02
+# pid: 25, 1, 0, .25; 60
+def main(desired_temp = desiredTemp, p= 1.2, i = .008 , d = .18): # i = .02
     supply = spd3303x(1)
     keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
     pid = PID(p, i, d, setpoint = desired_temp) 
-    pid.output_limits = (0, 2) 
+    pid.output_limits = (0, 1) 
     supply.set_voltage(12, channel = 2)
-
+    thermistor = bk5491bthermistor.bkthermistor("COM11")
     
 
 
@@ -39,6 +39,7 @@ def main(desired_temp = desiredTemp, p= 0.5, i = .02 , d = 0): # i = .02
 
         tc_temp = keithley.thermoCoupleTemp()
         kill_function(tc_temp)
+        therm_res, therm_temp = thermistor.fetchtemp()
         
 
         pid.setpoint = desired_temp * heat
@@ -47,12 +48,12 @@ def main(desired_temp = desiredTemp, p= 0.5, i = .02 , d = 0): # i = .02
         supply.set_current(current, channel = 2)
 
         current_time = time.time()
-
-
-        print("desired_temp = " + str(desired_temp), "current = " + str(current), "tc_temp = " +  str(tc_temp))
+        plt.scatter(current_time, tc_temp, color = 'green')
+        plt.scatter(current_time, therm_temp, color = 'green')
+        print("desired_temp = " + str(desired_temp), "current = " + str(current), "tc_temp = " +  str(tc_temp) + " therm_res = " + str(therm_res) + " therm_temp = " + str(therm_temp))
 
         f = open("Data/tempControl/"+fn, "a")
-        f.write("{},{},{},{}\n".format(current_time, desired_temp, current, tc_temp))
+        f.write("{},{},{},{},{},{}\n".format(current_time, desired_temp, current, tc_temp, therm_res, therm_temp))
         f.close()
 
         time.sleep(.6)

@@ -11,7 +11,7 @@ import time
 
 ######################
 # Sweep parameters
-numPoints = 121
+numPoints = 61
 maxV = 160
 minV = 0
 #######################
@@ -62,7 +62,7 @@ for sweepSpaceParams in sweepSpaceL:
         LIA.autoOffsetX()
         LIA.autoOffsetY()
 
-        for direction in [1, -1]*10:
+        for direction in [1, -1]*5:
             SPD3303x1.set_current(0)
             time.sleep(1)
             if direction == 1:
