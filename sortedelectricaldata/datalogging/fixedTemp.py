@@ -9,7 +9,7 @@ from MachineCode import bk5491bthermistor
 
 ######################
 # Sweep parameters
-desiredTemp = 10 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
+desiredTemp = 25 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
 #######################
 
 timeStamp = str(time.time())[:10]
@@ -18,7 +18,7 @@ f = open("Data/tempControl/"+fn, "w+")
 f.write("t,i,temp_desired,temp_tc,therm_res,therm_temp\n")
 f.close()
 # pid: 25, 1, 0, .25 within .01; 60, .2, .008, .18 within 1; 10, 1.2, .01, .1 within .1
-def main(desired_temp = desiredTemp, p= 1.2, i = 0.01 , d = .1): # i = .02
+def main(desired_temp = desiredTemp, p= 1, i = 0 , d = .25): # i = .02
     supply = spd3303x(1)
     keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
