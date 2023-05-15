@@ -1,4 +1,4 @@
-<h1></h1>
+<h1>Code for Automated use of Electrical Characterization setup in Breznay Lab</h1>
 Used for the following projects:
 1. Thin Film Growth and Characterization of DyTe2'(Kaveh Pezeshki Thesis)
 2. Characterization of thin-film gold (Emma Lickey misc.)
