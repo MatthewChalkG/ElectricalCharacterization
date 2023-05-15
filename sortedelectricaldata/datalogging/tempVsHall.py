@@ -1,1 +1,1 @@
-import HallEffectSMU
+# not done, can't be done continuously unless rly strong hall signal
