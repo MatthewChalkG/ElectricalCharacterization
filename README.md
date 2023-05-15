@@ -3,7 +3,7 @@
 
 Used for the following projects:
 <ol>
-  <li>Thin Film Growth and Characterization of DyTe2'(Kaveh Pezeshki Thesis)</li>
+  <li>Thin Film Growth and Characterization of DyTe2 (Kaveh Pezeshki Thesis)</li>
   <li>Characterization of thin-film gold (Emma Lickey misc.)</li>
   <li>Characterization of graphene field effect transistors (Emma Lickey Thesis)</li>
 </ol>
