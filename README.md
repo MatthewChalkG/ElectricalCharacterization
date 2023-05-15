@@ -12,7 +12,7 @@ Used for the following projects:
 The manual for making use of this repository can be found at the link below:
 https://docs.google.com/document/d/1XUEJyOQIHJrHLE_vnaivs8qQtfJ8ZIHhpnAM22L-ZRY/edit?usp=sharing
 
-Contact [first letter of my first name + my last name][at symbol] hmc.edu
+Contact [first letter of my first name + my last name][at symbol] hmc.edu for access.
 
 
 This repository contains the supplementary information discussed in the Kaveh's thesis text. This includes:
