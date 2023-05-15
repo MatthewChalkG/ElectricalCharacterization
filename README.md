@@ -1,4 +1,6 @@
-<h1>Code for Automated use of Electrical Characterization setup in Breznay Lab</h1>
+<h1>Electrical Characterization Setup Code for Breznay Lab</h1>
+
+
 Used for the following projects:
 <ol>
   <li>Thin Film Growth and Characterization of DyTe2'(Kaveh Pezeshki Thesis)</li>
