@@ -1,8 +1,11 @@
 <h1>Code for Automated use of Electrical Characterization setup in Breznay Lab</h1>
 Used for the following projects:
-1. Thin Film Growth and Characterization of DyTe2'(Kaveh Pezeshki Thesis)
-2. Characterization of thin-film gold (Emma Lickey misc.)
-3. Characterization of graphene field effect transistors (Emma Lickey Thesis)
+<ol>
+  <li>Thin Film Growth and Characterization of DyTe2'(Kaveh Pezeshki Thesis)</li>
+  <li>Characterization of thin-film gold (Emma Lickey misc.)</li>
+  <li>Characterization of graphene field effect transistors (Emma Lickey Thesis)</li>
+</ol>
+
 
 The manual for making use of this repository can be found at the link below:
 https://docs.google.com/document/d/1XUEJyOQIHJrHLE_vnaivs8qQtfJ8ZIHhpnAM22L-ZRY/edit?usp=sharing
