@@ -80,6 +80,9 @@ class SR2124:
     def setv(self, v):
         self.ser.write(("SLVL"+str(v)+'\r\n').encode('utf-8'))
     
+    def setsens(self, sens):
+        self.ser.write(("SENS"+str(sens)+'\r\n').encode('utf-8'))
+
     def setb(self, b):
         self.ser.write(("BIAS"+str(b)+'\r\n').encode('utf-8'))
 
