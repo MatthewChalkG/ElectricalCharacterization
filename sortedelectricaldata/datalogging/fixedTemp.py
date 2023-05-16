@@ -9,18 +9,19 @@ from MachineCode import bk5491bthermistor
 
 ######################
 # Sweep parameters
-desiredTemp = 30 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
+desiredTemp = 32 # celsius # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
 #######################
 therm_temp = 0
 therm_res = 0
 
 timeStamp = str(time.time())[:10]
+start_time = time.time()
 fn = "fixedTemp{}.txt".format(timeStamp)
 f = open("Data/tempControl/"+fn, "w+")
 f.write("t,i,temp_desired,temp_tc,therm_res,therm_temp\n")
 f.close()
 # pid: 25, 1, 0, .25 within .01; 60, .2, .008, .18 within 1; 10, 1.2, .01, .1 within .1;
-def main(desired_temp = desiredTemp, p= 1, i = 0 , d = .25): # i = .02
+def main(desired_temp = desiredTemp, p= .5, i = 0.003 , d = 0): # i = .02
     supply = spd3303x(1)
     keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
@@ -50,8 +51,8 @@ def main(desired_temp = desiredTemp, p= 1, i = 0 , d = .25): # i = .02
         supply.set_current(current, channel = 2)
 
         current_time = time.time()
-        plt.scatter(current_time, tc_temp, color = 'green')
-        plt.scatter(current_time, therm_temp, color = 'green')
+        #plt.scatter(current_time-start_time, tc_temp, color = 'green')
+        #plt.scatter(current_time, therm_temp, color = 'green')
         print("desired_temp = " + str(desired_temp), "current = " + str(current), "tc_temp = " +  str(tc_temp) + " therm_res = " + str(therm_res) + " therm_temp = " + str(therm_temp))
 
         f = open("Data/tempControl/"+fn, "a")
@@ -59,7 +60,7 @@ def main(desired_temp = desiredTemp, p= 1, i = 0 , d = .25): # i = .02
         f.close()
 
         time.sleep(.6)
-
+        #plt.pause(0.05)
 
 def kill_function(tc_temp):
     """ kills if temp above 70 C"""
