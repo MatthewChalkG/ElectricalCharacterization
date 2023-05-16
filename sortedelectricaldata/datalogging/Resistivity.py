@@ -23,14 +23,18 @@ f.close()
 
 
 LIA = SR2124.SR2124('COM7')
-LIA2 = SR830.SR830("COM9")
+#LIA2 = SR830.SR830("COM9")
 
 
 while True:
     time.sleep(1.5)
     LIA.overloadDetect()
     x, y, r, theta =LIA.readall() 
-    x2, y2, r2, theta2 =LIA2.readall() 
+    #x2, y2, r2, theta2 =LIA2.readall()
+    x2 = 0
+    y2 = 0
+    r2 = 0
+    theta2 = 0 
     lockstatus = LIA.readlock()
     # xK = keith.voltage() * LIA.readsens()/10
     xK = 0

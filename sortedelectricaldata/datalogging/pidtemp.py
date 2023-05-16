@@ -62,10 +62,13 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
     supply = spd3303x(1)
     keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
-    thermistor = bk5491bthermistor.bkthermistor("COM11")
+    #thermistor = bk5491bthermistor.bkthermistor("COM11")
 
     tc_temp = keithley.thermoCoupleTemp()
-    therm_res, therm_temp = thermistor.fetchtemp()
+   # therm_res, therm_temp = thermistor.fetchtemp()
+    therm_res = 0
+    therm_temp = 0
+
     supply.set_voltage(12, channel = 2)
 
     pid = PID(p, i, d, setpoint = tc_temp) 
@@ -93,7 +96,7 @@ def approach_desired_exit(prev_pid = None, target_temp = 10, heat = 1, waitatamb
         current_time = time.time()
         
         tc_temp = keithley.thermoCoupleTemp()
-        therm_res, therm_temp = thermistor.fetchtemp()
+        #therm_res, therm_temp = thermistor.fetchtemp()
         
         kill_function(tc_temp)
 

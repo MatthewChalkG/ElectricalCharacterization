@@ -9,8 +9,10 @@ from MachineCode import bk5491bthermistor
 
 ######################
 # Sweep parameters
-desiredTemp = 25 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
+desiredTemp = 30 # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
 #######################
+therm_temp = 0
+therm_res = 0
 
 timeStamp = str(time.time())[:10]
 fn = "fixedTemp{}.txt".format(timeStamp)
@@ -25,7 +27,7 @@ def main(desired_temp = desiredTemp, p= 1, i = 0 , d = .25): # i = .02
     pid = PID(p, i, d, setpoint = desired_temp) 
     pid.output_limits = (0, 1.5) 
     supply.set_voltage(12, channel = 2)
-    thermistor = bk5491bthermistor.bkthermistor("COM11")
+    #thermistor = bk5491bthermistor.bkthermistor("COM11")
     
 
 
@@ -39,7 +41,7 @@ def main(desired_temp = desiredTemp, p= 1, i = 0 , d = .25): # i = .02
 
         tc_temp = keithley.thermoCoupleTemp()
         kill_function(tc_temp)
-        therm_res, therm_temp = thermistor.fetchtemp()
+       # therm_res, therm_temp = thermistor.fetchtemp()
         
 
         pid.setpoint = desired_temp * heat
