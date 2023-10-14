@@ -22,7 +22,7 @@ f.write("t,i,x,y,r,theta,x2,y2,r2,theta2,xK,tc,therm,dc\n")
 f.close()
 
 
-LIA = SR2124.SR2124('COM7')
+LIA = SR2124.SR2124('COM4')
 #LIA2 = SR830.SR830("COM9")
 
 

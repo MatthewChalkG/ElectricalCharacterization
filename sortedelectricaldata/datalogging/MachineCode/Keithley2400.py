@@ -35,7 +35,7 @@ class Keithley2400():
         time.sleep(0.2)
         return answer
         
-    def setComplianceCurrent(self, curr = 10):
+    def setComplianceCurrent(self, curr = 1):
         self.sendValue(":SENS:CURR:PROT " + str(curr) + "E-3")
 
     def read_current(self):
@@ -91,7 +91,6 @@ class Keithley2400():
         self.sendValue(":OUTP ON")
         print(self.readValue(":READ?"))
         self.sendValue(":OUTP OFF")
-
 
     def setupVoltageMeasurement(self):
         """Function to prepare Keithley vor Voltage measurement.

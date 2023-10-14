@@ -9,7 +9,8 @@ from MachineCode import bk5491bthermistor
 
 ######################
 # Sweep parameters
-desiredTemp = 32 # celsius # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
+desiredTemp = 22
+#desiredTemp = print("Hello! You are using the fixedTemp function\n Please set a desired temperature you would like to achieve") # celsius # min is like 6ish unless we bump the current  up, need to check max current for pelt elements tho
 #######################
 therm_temp = 0
 therm_res = 0
@@ -21,15 +22,18 @@ f = open("Data/tempControl/"+fn, "w+")
 f.write("t,i,temp_desired,temp_tc,therm_res,therm_temp\n")
 f.close()
 # pid: 25, 1, 0, .25 within .01; 60, .2, .008, .18 within 1; 10, 1.2, .01, .1 within .1;
-def main(desired_temp = desiredTemp, p= 25, i = 1 , d = 0): # i = .02
+def main(desired_temp = desiredTemp, p= .5, i = 0.003 , d = 0): # i = .02
     supply = spd3303x(1)
+    fan = spd3303x(2)
     keithley = keithley2110tc(2)
     relays = arduinorelayinterface.Arduino('COM8')
     pid = PID(p, i, d, setpoint = desired_temp) 
     pid.output_limits = (0, 1.5) 
     supply.set_voltage(12, channel = 2)
+    fan.set_voltage(7, channel = 2)
     #thermistor = bk5491bthermistor.bkthermistor("COM11")
     
+
 
     while True:
         if desired_temp < 22:
