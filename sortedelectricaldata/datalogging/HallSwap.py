@@ -21,7 +21,7 @@ f = open("Data/HallSwap/"+fn, "w+")
 f.write("t,i,x,y,r,theta,xK,tc, therm\n")
 f.close()
 
-LIA = SR2124.SR2124('COM7')
+LIA = SR2124.SR2124('COM5')
 SPD3303x = spd3303x()
 
 SPD3303x.set_voltage(5)
@@ -67,12 +67,14 @@ while True:
             plt.scatter(t, x, color = 'green')
            # plt.scatter(t, x, color = 'blue')
         else:
-            plt.scatter(t, x, color = 'brown')
+            plt.scatter(t, x, color = 'blue')
            # plt.scatter(t, x, color = 'yellow')
         plt.pause(0.05)
 
+plt.xlabel("time (s)")
+plt.ylabel("Vertical voltage difference (V)")
 plt.show()
 SPD3303x.set_current(0)
 SPD3303x.set_voltage(0)
 
-    
+

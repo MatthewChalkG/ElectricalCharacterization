@@ -10,7 +10,7 @@ startTime = time.time()
 timeStamp = str(time.time())[:10]
 fn = "temp_scan{}.txt".format(timeStamp)
 
-f = open("Data"+fn, "w+")
+f = open("Data"+fn+"laser, 12b", "w+")
 f.write("t,x,y,r,theta,temp_val\n")
 f.close()
 
