@@ -11,8 +11,8 @@ import time
 
 ######################
 # Sweep parameters
-numPoints = 61
-maxV = 160
+numPoints = 21
+maxV = 10
 minV = 0
 #######################
 
@@ -26,10 +26,10 @@ f.close()
 startTime = time.time() 
 biasD = -1
 
-LIA = SR2124.SR2124('COM7')
+LIA = SR2124.SR2124('COM4')
 keith = Keithley2400("COM10")
 relay = Arduino("COM3")
-LIA2 = SR830.SR830("COM9")
+LIA2 = SR830.SR830("COM5")
 
 SPD3303x1 = spd3303x() # sol curr
 
