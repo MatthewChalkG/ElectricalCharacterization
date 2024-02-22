@@ -10,9 +10,9 @@ import time
 
 ######################
 # Sweep parameters
-minV = -20
-maxV = 20
-numPoints = 211
+minV = -40
+maxV = 40
+numPoints = 11
 up = True
 down = True
 #######################
@@ -26,7 +26,7 @@ f.write("t,i,x,y,r,theta,xK,tc,therm,dc,trueGateDC,trueGateI\n")
 f.close()
 
 
-LIA = SR2124.SR2124('COM7')
+LIA = SR2124.SR2124('COM4')
 relay = Arduino("COM3")
 keith = Keithley2400("COM10")
 
