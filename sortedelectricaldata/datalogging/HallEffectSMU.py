@@ -11,7 +11,7 @@ import time
 
 ######################
 # Sweep parameters
-numPoints = 21
+numPoints = 51
 maxV = 10
 minV = 0
 #######################
