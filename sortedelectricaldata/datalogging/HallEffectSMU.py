@@ -8,12 +8,14 @@ from MachineCode.keithley2110tc import keithley2110tc
 from MachineCode.arduinorelayinterface import Arduino
 from MachineCode.Keithley2400 import Keithley2400
 import time
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 ######################
 # Sweep parameters
-numPoints = 51
-maxV = 10
-minV = 0
+numPoints = 81
+maxV = 40
+minV = -40
 #######################
 
 timeStamp = str(time.time())[:10]
@@ -26,7 +28,7 @@ f.close()
 startTime = time.time() 
 biasD = -1
 
-LIA = SR2124.SR2124('COM4')
+LIA = SR2124.SR2124('COM6')
 keith = Keithley2400("COM10")
 relay = Arduino("COM3")
 LIA2 = SR830.SR830("COM5")
@@ -40,8 +42,9 @@ SPD3303x1.set_voltage(5)
 SPD3303x1.set_current(0)
 
 keith.outputOn()
-#sweepSpaceL = [[0, maxV, numPoints], [maxV, 0, numPoints], [0, minV, numPoints], [minV, 0, numPoints]]
-sweepSpaceL = [[0, maxV, numPoints], [maxV, 0, numPoints]]
+sweepSpaceL = [[0, maxV, numPoints], [maxV, 0, numPoints], [0, minV, numPoints], [minV, 0, numPoints]]
+#sweepSpaceL = [[minV, maxV, numPoints], [maxV, 0, numPoints], [0, minV, numPoints], [minV, 0, numPoints]]
+#sweepSpaceL = [[minV, maxV, numPoints], [maxV, minV, numPoints]]
 
 
 for sweepSpaceParams in sweepSpaceL:
@@ -91,11 +94,12 @@ for sweepSpaceParams in sweepSpaceL:
             #temp = 0
             f = open("Data/HallEffectDCBias/"+fn, "a")
             t = time.time() # - startTime
-            print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, i: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, trueGateDC, trueGateI))
+            output = print("t: {}, i: {}, x: {}, y: {}, r: {}, theta: {}, xK: {}, tc: {}, therm: {}, dc: {}, i: {}".format(t-startTime, i*direction, x, y, r, theta, xK, tc, therm, trueGateDC, trueGateI))
             f.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(t, i*direction, x, y, r, theta, xK, tc, therm, trueGateDC, trueGateI, x2, y2, r2, theta2) + "\n")
             f.close()
 
-
+# def animate(i):
+#     t 
 keith.outputOff()
 SPD3303x1.set_current(0)
 SPD3303x1.set_voltage(0)
