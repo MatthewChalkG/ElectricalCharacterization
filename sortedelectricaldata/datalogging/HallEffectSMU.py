@@ -13,9 +13,9 @@ import matplotlib.animation as animation
 
 ######################
 # Sweep parameters
-numPoints = 81
-maxV = 40
-minV = -40
+numPoints = 281
+maxV = 140
+minV = 0
 #######################
 
 timeStamp = str(time.time())[:10]
