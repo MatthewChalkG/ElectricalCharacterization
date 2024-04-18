@@ -13,8 +13,8 @@ import matplotlib.animation as animation
 
 ######################
 # Sweep parameters
-numPoints = 281
-maxV = 140
+numPoints = 301
+maxV = 150
 minV = 0
 #######################
 
