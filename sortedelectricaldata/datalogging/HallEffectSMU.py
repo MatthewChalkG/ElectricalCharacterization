@@ -13,7 +13,7 @@ import matplotlib.animation as animation
 
 ######################
 # Sweep parameters
-numPoints = 301
+numPoints = 151
 maxV = 150
 minV = 0
 #######################
@@ -65,7 +65,7 @@ for sweepSpaceParams in sweepSpaceL:
         LIA.autoOffsetX()
         LIA.autoOffsetY()
 
-        for direction in [1, -1]*5:
+        for direction in [1, -1]*2:
             SPD3303x1.set_current(0)
             time.sleep(1)
             if direction == 1:
